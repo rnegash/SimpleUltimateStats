@@ -3,9 +3,52 @@ export const copy = {
     lightTeam: "Light",
     darkTeam: "Dark",
     events: {
-      pull: "Pull",
-      score: "Score",
-      turnover: "Turnover",
+      pull: {
+        title: "Pull",
+        addEvent: "Add Pull event",
+        eventData: {
+          team: {
+            label: "Team",
+          },
+          outcome: {
+            label: "Outcome",
+            outcome: ["in", "out", "caught"],
+          },
+          player: {
+            label: "Player",
+          },
+        },
+      },
+      score: {
+        title: "Score",
+        addEvent: "Add Score event",
+        eventData: {
+          team: {
+            label: "Team",
+          },
+          assistBy: {
+            label: "Assist by",
+          },
+          player: {
+            label: "Player",
+          },
+        },
+      },
+      turnover: {
+        title: "Turnover",
+        addEvent: "Add Turnover event",
+        eventData: {
+          team: {
+            label: "Team",
+          },
+          reason: {
+            label: "Reason",
+          },
+          player: {
+            label: "Player",
+          },
+        },
+      },
     },
     eventData: {
       required: {
