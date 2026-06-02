@@ -1,4 +1,4 @@
-import { copy } from "@/assets/strings";
+import { copy } from "@/app/assets/strings";
 import {
   RadioGroup,
   Label,

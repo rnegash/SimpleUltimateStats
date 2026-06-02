@@ -2,18 +2,17 @@
 import { useState } from "react";
 import { Form, Popover, Button } from "@heroui/react";
 
-import { copy } from "@/assets/strings";
+import { copy } from "@/app/assets/strings";
 
 import { sampleEvents } from "../../mocks/events";
-import { getScoreByTeam } from "./utils";
+import { getScoreByTeam } from "./_utils/getScoreByTeam";
 
 import type { GameEvent } from "./types";
 import { EventType } from "./types";
 import { EventTable } from "./_components/EventTable";
-import { scoreEventSchema } from "@/schemas/scoreEvent";
-import { pullEventSchema } from "@/schemas/pullEvent";
-import { turnoverEventSchema } from "@/schemas/turnoverEvent";
+
 import { EventFormElements } from "./_components/EventFormElements";
+import { handleFormSubmit } from "./_utils/handleFormSubmit";
 
 const eventButtons = [
   {
@@ -35,87 +34,6 @@ export const TEAM_LIGHT = "Lights";
 
 const GamePage = () => {
   const [events, setEvents] = useState<GameEvent[]>(sampleEvents);
-
-  const onSubmit = (
-    e: React.FormEvent<HTMLFormElement>,
-    eventType: keyof typeof EventType,
-  ) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data: Record<string, string> = {};
-
-    // Convert FormData to plain object
-    formData.forEach((value, key) => {
-      data[key] = value.toString();
-    });
-
-    switch (eventType) {
-      case "score":
-        const scoreData = scoreEventSchema.safeParse(data);
-
-        if (scoreData.success) {
-          const newScoreEvent: GameEvent = {
-            type: "score",
-            teamId: scoreData.data.team,
-            timestamp: new Date().toISOString(),
-            playerId: scoreData.data.player,
-            data: {
-              assistBy: scoreData.data.assistBy,
-              points: getScoreByTeam(scoreData.data.team, events) + 1,
-            },
-          };
-
-          setEvents((events) => [...events, newScoreEvent]);
-        } else {
-          console.log(scoreData.error);
-        }
-
-        break;
-
-      case "pull":
-        const pullData = pullEventSchema.safeParse(data);
-
-        if (pullData.success) {
-          const newPullEvent: GameEvent = {
-            type: "pull",
-            teamId: pullData.data.team,
-            timestamp: new Date().toISOString(),
-            playerId: pullData.data.player,
-            data: {
-              outcome: pullData.data.outcome,
-            },
-          };
-          setEvents((events) => [...events, newPullEvent]);
-        } else {
-          console.log(pullData.error);
-        }
-
-        break;
-
-      case "turnover":
-        const turnoverData = turnoverEventSchema.safeParse(data);
-
-        if (turnoverData.success) {
-          const newTurnoverEvent: GameEvent = {
-            type: "turnover",
-            teamId: turnoverData.data.team,
-            timestamp: new Date().toISOString(),
-            playerId: turnoverData.data.player,
-            data: {
-              reason: turnoverData.data.reason,
-            },
-          };
-          setEvents((events) => [...events, newTurnoverEvent]);
-        } else {
-          console.log(turnoverData.error);
-        }
-
-        break;
-
-      default:
-        break;
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col items-center">
@@ -142,9 +60,11 @@ const GamePage = () => {
                   <Form
                     className="flex flex-col gap-4"
                     onSubmit={(formEvent) =>
-                      onSubmit(
+                      handleFormSubmit(
                         formEvent,
                         event.title.toLowerCase() as keyof typeof EventType,
+                        events,
+                        setEvents,
                       )
                     }
                   >
