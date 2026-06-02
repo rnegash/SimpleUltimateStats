@@ -3,7 +3,7 @@ import { GameEvent } from "../app/game/types";
 export const sampleEvents: GameEvent[] = [
   {
     type: "pull",
-    teamId: "lightTeam",
+    teamId: "Lights",
     timestamp: "2026-05-31T14:02:15Z",
     playerId: "player12",
     data: {
@@ -12,7 +12,7 @@ export const sampleEvents: GameEvent[] = [
   },
   {
     type: "score",
-    teamId: "lightTeam",
+    teamId: "Lights",
     timestamp: "2026-05-31T14:04:03Z",
     playerId: "Maya Johnson",
     data: {
@@ -22,7 +22,7 @@ export const sampleEvents: GameEvent[] = [
   },
   {
     type: "pull",
-    teamId: "darkTeam",
+    teamId: "Darks",
     timestamp: "2026-05-31T14:06:22Z",
     playerId: "player21",
     data: {
@@ -31,7 +31,7 @@ export const sampleEvents: GameEvent[] = [
   },
   {
     type: "turnover",
-    teamId: "darkTeam",
+    teamId: "Darks",
     timestamp: "2026-05-31T14:06:40Z",
     playerId: "player21",
     data: {
@@ -40,7 +40,7 @@ export const sampleEvents: GameEvent[] = [
   },
   {
     type: "score",
-    teamId: "darkTeam",
+    teamId: "Darks",
     timestamp: "2026-05-31T14:09:11Z",
     playerId: "Ethan Park",
     data: {
@@ -49,7 +49,7 @@ export const sampleEvents: GameEvent[] = [
   },
   {
     type: "turnover",
-    teamId: "lightTeam",
+    teamId: "Lights",
     timestamp: "2026-05-31T14:11:30Z",
     playerId: "player07",
     data: {
@@ -58,7 +58,7 @@ export const sampleEvents: GameEvent[] = [
   },
   {
     type: "pull",
-    teamId: "lightTeam",
+    teamId: "Lights",
     timestamp: "2026-05-31T14:13:08Z",
     playerId: "player05",
     data: {
@@ -67,7 +67,7 @@ export const sampleEvents: GameEvent[] = [
   },
   {
     type: "score",
-    teamId: "darkTeam",
+    teamId: "Darks",
     timestamp: "2026-05-31T14:19:11Z",
     playerId: "Ethan Park",
     data: {

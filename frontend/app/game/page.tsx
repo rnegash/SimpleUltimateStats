@@ -1,14 +1,6 @@
 "use client";
 import { useState } from "react";
-import {
-  FieldError,
-  Form,
-  Input,
-  Label,
-  Popover,
-  Button,
-  TextField,
-} from "@heroui/react";
+import { Form, Popover, Button } from "@heroui/react";
 
 import { copy } from "@/assets/strings";
 
@@ -21,6 +13,7 @@ import { EventTable } from "./_components/EventTable";
 import { scoreEventSchema } from "@/schemas/scoreEvent";
 import { pullEventSchema } from "@/schemas/pullEvent";
 import { turnoverEventSchema } from "@/schemas/turnoverEvent";
+import { EventFormElements } from "./_components/EventFormElements";
 
 const eventButtons = [
   {
@@ -37,78 +30,8 @@ const eventButtons = [
   },
 ];
 
-const renderForm = (eventType: keyof typeof EventType) => {
-  const { events } = copy.game;
-  switch (eventType) {
-    case "pull":
-      const { pull } = events;
-      return (
-        <>
-          <TextField name="team" type="text">
-            <Label>{pull.eventData.team.label}</Label>
-            <Input placeholder={pull.eventData.team.label} />
-            <FieldError />
-          </TextField>
-          <TextField name="player" type="text">
-            <Label>{pull.eventData.player.label}</Label>
-            <Input placeholder={pull.eventData.player.label} />
-            <FieldError />
-          </TextField>
-          <TextField name="outcome" type="text">
-            <Label>{pull.eventData.outcome.label}</Label>
-            <Input placeholder={pull.eventData.outcome.label} />
-            <FieldError />
-          </TextField>
-        </>
-      );
-    case "score":
-      const { score } = events;
-      return (
-        <>
-          <TextField name="team" type="text">
-            <Label>{score.eventData.team.label}</Label>
-            <Input placeholder={score.eventData.team.label} />
-            <FieldError />
-          </TextField>
-          <TextField name="player" type="text">
-            <Label>{score.eventData.player.label}</Label>
-            <Input placeholder={score.eventData.player.label} />
-            <FieldError />
-          </TextField>
-          <TextField name="assistBy" type="text">
-            <Label>{score.eventData.assistBy.label}</Label>
-            <Input placeholder={score.eventData.assistBy.label} />
-            <FieldError />
-          </TextField>
-        </>
-      );
-
-    case "turnover":
-      const { turnover } = events;
-      return (
-        <>
-          <TextField name="team" type="text">
-            <Label>{turnover.eventData.team.label}</Label>
-            <Input placeholder={turnover.eventData.team.label} />
-            <FieldError />
-          </TextField>
-          <TextField name="player" type="text">
-            <Label>{turnover.eventData.player.label}</Label>
-            <Input placeholder={turnover.eventData.player.label} />
-            <FieldError />
-          </TextField>
-          <TextField name="reason" type="text">
-            <Label>{turnover.eventData.reason.label}</Label>
-            <Input placeholder={turnover.eventData.reason.label} />
-            <FieldError />
-          </TextField>
-        </>
-      );
-
-    default:
-      break;
-  }
-};
+export const TEAM_DARK = "Darks";
+export const TEAM_LIGHT = "Lights";
 
 const GamePage = () => {
   const [events, setEvents] = useState<GameEvent[]>(sampleEvents);
@@ -192,15 +115,19 @@ const GamePage = () => {
       default:
         break;
     }
-
-    alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center">
-      <div className="w-full text-center">
-        {copy.game.lightTeam} {getScoreByTeam("lightTeam", events)}
-        {copy.game.darkTeam} {getScoreByTeam("darkTeam", events)}
+      <div className="w-full justify-center text-2xl flex gap-2  ">
+        <span>
+          {TEAM_LIGHT || copy.game.lightTeam}{" "}
+          {getScoreByTeam(TEAM_LIGHT, events)}
+        </span>
+        -
+        <span>
+          {TEAM_DARK || copy.game.darkTeam} {getScoreByTeam(TEAM_DARK, events)}
+        </span>
       </div>
       <main className="max-w-3xl w-full px-6 py-20 flex flex-col gap-8">
         <div className="flex flex-col gap-4">
@@ -214,16 +141,18 @@ const GamePage = () => {
                   <Popover.Heading>{event.addEvent}</Popover.Heading>
                   <Form
                     className="flex flex-col gap-4"
-                    onSubmit={(e) =>
+                    onSubmit={(formEvent) =>
                       onSubmit(
-                        e,
+                        formEvent,
                         event.title.toLowerCase() as keyof typeof EventType,
                       )
                     }
                   >
-                    {renderForm(
-                      event.title.toLowerCase() as keyof typeof EventType,
-                    )}
+                    <EventFormElements
+                      eventType={
+                        event.title.toLowerCase() as keyof typeof EventType
+                      }
+                    />
 
                     <div className="flex gap-2">
                       <Button type="submit">Submit</Button>
