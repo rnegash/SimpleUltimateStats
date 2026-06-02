@@ -7,7 +7,8 @@ export const getScoreByTeam = (team: string, events: GameEvent[] | null) => {
     (event) => event.type === "score" && event.teamId === team,
   );
 
-  if (lastScoreEvent?.type === "score") return lastScoreEvent.data?.points;
+  if (lastScoreEvent?.type === "score")
+    return lastScoreEvent?.data?.points || 0;
 
   return 0;
 };

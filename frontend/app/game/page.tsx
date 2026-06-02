@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import {
-  Description,
   FieldError,
   Form,
   Input,
@@ -139,7 +138,7 @@ const GamePage = () => {
             playerId: scoreData.data.player,
             data: {
               assistBy: scoreData.data.assistBy,
-              points: getScoreByTeam(scoreData.data.team, events) || 0 + 1,
+              points: getScoreByTeam(scoreData.data.team, events) + 1,
             },
           };
 
