@@ -1,4 +1,4 @@
-import { GameEvent } from "../types";
+import type { GameEvent } from "../types";
 
 export const getScoreByTeam = (team: string, events: GameEvent[] | null) => {
   if (!events) return 0;

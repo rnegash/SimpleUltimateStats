@@ -1,6 +1,6 @@
 import { copy } from "@/app/assets/strings";
 import { Table } from "@heroui/react/table";
-import { GameEvent } from "../types";
+import type { GameEvent } from "../types";
 
 export const EventTable = ({ events }: { events: GameEvent[] }) => (
   <Table>

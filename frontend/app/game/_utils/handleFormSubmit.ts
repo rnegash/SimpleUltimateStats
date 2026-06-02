@@ -1,13 +1,13 @@
 import type { Dispatch, SetStateAction } from "react";
 import { scoreEventSchema } from "@/schemas/scoreEvent";
-import { EventType, GameEvent } from "../types";
+import type { Event, GameEvent } from "../types";
 import { getScoreByTeam } from "./getScoreByTeam";
 import { pullEventSchema } from "@/schemas/pullEvent";
 import { turnoverEventSchema } from "@/schemas/turnoverEvent";
 
 export const handleFormSubmit = (
   e: React.FormEvent<HTMLFormElement>,
-  eventType: keyof typeof EventType,
+  eventType: Event,
   events: GameEvent[],
   setEvents: Dispatch<SetStateAction<GameEvent[]>>,
 ) => {

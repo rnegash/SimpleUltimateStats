@@ -1,8 +1,6 @@
-export const EventType = {
-  score: "score",
-  turnover: "turnover",
-  pull: "pull",
-} as const;
+export const eventType = ["score", "turnover", "pull"] as const;
+
+export type Event = (typeof eventType)[number];
 
 export type GameEvent =
   | {

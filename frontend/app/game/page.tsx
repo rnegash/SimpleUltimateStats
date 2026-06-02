@@ -7,8 +7,7 @@ import { copy } from "@/app/assets/strings";
 import { sampleEvents } from "../../mocks/events";
 import { getScoreByTeam } from "./_utils/getScoreByTeam";
 
-import type { GameEvent } from "./types";
-import { EventType } from "./types";
+import type { GameEvent, Event } from "./types";
 import { EventTable } from "./_components/EventTable";
 
 import { EventFormElements } from "./_components/EventFormElements";
@@ -17,6 +16,7 @@ import { handleFormSubmit } from "./_utils/handleFormSubmit";
 const eventButtons = [
   {
     ...copy.game.events.pull,
+
     color: "bg-blue-400",
   },
   {
@@ -62,16 +62,14 @@ const GamePage = () => {
                     onSubmit={(formEvent) =>
                       handleFormSubmit(
                         formEvent,
-                        event.title.toLowerCase() as keyof typeof EventType,
+                        event.title.toLowerCase() as Event,
                         events,
                         setEvents,
                       )
                     }
                   >
                     <EventFormElements
-                      eventType={
-                        event.title.toLowerCase() as keyof typeof EventType
-                      }
+                      eventType={event.title.toLowerCase() as Event}
                     />
 
                     <div className="flex gap-2">

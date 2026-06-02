@@ -7,14 +7,10 @@ import {
   Input,
   FieldError,
 } from "@heroui/react";
-import { EventType } from "../types";
+import type { Event } from "../types";
 import { TEAM_DARK, TEAM_LIGHT } from "../page";
 
-export const EventFormElements = ({
-  eventType,
-}: {
-  eventType: keyof typeof EventType;
-}) => {
+export const EventFormElements = ({ eventType }: { eventType: Event }) => {
   const { events } = copy.game;
   switch (eventType) {
     case "pull":
