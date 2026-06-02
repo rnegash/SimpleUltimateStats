@@ -29,7 +29,7 @@ export type GameEvent =
       teamId: string;
       timestamp: string;
       playerId?: string;
-      data: {
-        outcome: "in" | "out" | "caught";
+      data?: {
+        outcome?: "in" | "out" | "caught";
       };
     };

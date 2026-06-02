@@ -13,12 +13,15 @@ import {
 
 import { copy } from "@/assets/strings";
 
-import { sampleEvents } from "../mocks/events";
+import { sampleEvents } from "../../mocks/events";
 import { getScoreByTeam } from "./utils";
 
 import type { GameEvent } from "./types";
 import { EventType } from "./types";
 import { EventTable } from "./_components/EventTable";
+import { scoreEventSchema } from "@/schemas/scoreEvent";
+import { pullEventSchema } from "@/schemas/pullEvent";
+import { turnoverEventSchema } from "@/schemas/turnoverEvent";
 
 const eventButtons = [
   {
@@ -47,12 +50,12 @@ const renderForm = (eventType: keyof typeof EventType) => {
             <Input placeholder={pull.eventData.team.label} />
             <FieldError />
           </TextField>
-          <TextField name="team" type="text">
+          <TextField name="player" type="text">
             <Label>{pull.eventData.player.label}</Label>
             <Input placeholder={pull.eventData.player.label} />
             <FieldError />
           </TextField>
-          <TextField name="team" type="text">
+          <TextField name="outcome" type="text">
             <Label>{pull.eventData.outcome.label}</Label>
             <Input placeholder={pull.eventData.outcome.label} />
             <FieldError />
@@ -68,12 +71,12 @@ const renderForm = (eventType: keyof typeof EventType) => {
             <Input placeholder={score.eventData.team.label} />
             <FieldError />
           </TextField>
-          <TextField name="team" type="text">
+          <TextField name="player" type="text">
             <Label>{score.eventData.player.label}</Label>
             <Input placeholder={score.eventData.player.label} />
             <FieldError />
           </TextField>
-          <TextField name="team" type="text">
+          <TextField name="assistBy" type="text">
             <Label>{score.eventData.assistBy.label}</Label>
             <Input placeholder={score.eventData.assistBy.label} />
             <FieldError />
@@ -90,12 +93,12 @@ const renderForm = (eventType: keyof typeof EventType) => {
             <Input placeholder={turnover.eventData.team.label} />
             <FieldError />
           </TextField>
-          <TextField name="team" type="text">
+          <TextField name="player" type="text">
             <Label>{turnover.eventData.player.label}</Label>
             <Input placeholder={turnover.eventData.player.label} />
             <FieldError />
           </TextField>
-          <TextField name="team" type="text">
+          <TextField name="reason" type="text">
             <Label>{turnover.eventData.reason.label}</Label>
             <Input placeholder={turnover.eventData.reason.label} />
             <FieldError />
@@ -111,7 +114,10 @@ const renderForm = (eventType: keyof typeof EventType) => {
 const GamePage = () => {
   const [events, setEvents] = useState<GameEvent[]>(sampleEvents);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (
+    e: React.FormEvent<HTMLFormElement>,
+    eventType: keyof typeof EventType,
+  ) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data: Record<string, string> = {};
@@ -120,6 +126,73 @@ const GamePage = () => {
     formData.forEach((value, key) => {
       data[key] = value.toString();
     });
+
+    switch (eventType) {
+      case "score":
+        const scoreData = scoreEventSchema.safeParse(data);
+
+        if (scoreData.success) {
+          const newScoreEvent: GameEvent = {
+            type: "score",
+            teamId: scoreData.data.team,
+            timestamp: new Date().toISOString(),
+            playerId: scoreData.data.player,
+            data: {
+              assistBy: scoreData.data.assistBy,
+              points: getScoreByTeam(scoreData.data.team, events) || 0 + 1,
+            },
+          };
+
+          setEvents((events) => [...events, newScoreEvent]);
+        } else {
+          console.log(scoreData.error);
+        }
+
+        break;
+
+      case "pull":
+        const pullData = pullEventSchema.safeParse(data);
+
+        if (pullData.success) {
+          const newPullEvent: GameEvent = {
+            type: "pull",
+            teamId: pullData.data.team,
+            timestamp: new Date().toISOString(),
+            playerId: pullData.data.player,
+            data: {
+              outcome: pullData.data.outcome,
+            },
+          };
+          setEvents((events) => [...events, newPullEvent]);
+        } else {
+          console.log(pullData.error);
+        }
+
+        break;
+
+      case "turnover":
+        const turnoverData = turnoverEventSchema.safeParse(data);
+
+        if (turnoverData.success) {
+          const newTurnoverEvent: GameEvent = {
+            type: "turnover",
+            teamId: turnoverData.data.team,
+            timestamp: new Date().toISOString(),
+            playerId: turnoverData.data.player,
+            data: {
+              reason: turnoverData.data.reason,
+            },
+          };
+          setEvents((events) => [...events, newTurnoverEvent]);
+        } else {
+          console.log(turnoverData.error);
+        }
+
+        break;
+
+      default:
+        break;
+    }
 
     alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
   };
@@ -140,7 +213,15 @@ const GamePage = () => {
               <Popover.Content className="max-w-64">
                 <Popover.Dialog>
                   <Popover.Heading>{event.addEvent}</Popover.Heading>
-                  <Form className="flex flex-col gap-4" onSubmit={onSubmit}>
+                  <Form
+                    className="flex flex-col gap-4"
+                    onSubmit={(e) =>
+                      onSubmit(
+                        e,
+                        event.title.toLowerCase() as keyof typeof EventType,
+                      )
+                    }
+                  >
                     {renderForm(
                       event.title.toLowerCase() as keyof typeof EventType,
                     )}
