@@ -15,16 +15,16 @@ import { handleFormSubmit } from "./_utils/handleFormSubmit";
 
 const eventButtons = [
   {
-    ...copy.game.events.pull,
+    ...copy.gamePage.events.pull,
 
     color: "bg-blue-400",
   },
   {
-    ...copy.game.events.score,
+    ...copy.gamePage.events.score,
     color: "bg-green-400",
   },
   {
-    ...copy.game.events.turnover,
+    ...copy.gamePage.events.turnover,
     color: "bg-red-400",
   },
 ];
@@ -33,18 +33,19 @@ export const TEAM_DARK = "Darks";
 export const TEAM_LIGHT = "Lights";
 
 const GamePage = () => {
-  const [events, setEvents] = useState<GameEvent[]>(sampleEvents);
+  const [events, setEvents] = useState<GameEvent[]>([]);
 
   return (
     <div className="min-h-screen flex flex-col items-center">
       <div className="w-full justify-center text-2xl flex gap-2  ">
         <span>
-          {TEAM_LIGHT || copy.game.lightTeam}{" "}
+          {TEAM_LIGHT || copy.gamePage.lightTeam}{" "}
           {getScoreByTeam(TEAM_LIGHT, events)}
         </span>
         -
         <span>
-          {TEAM_DARK || copy.game.darkTeam} {getScoreByTeam(TEAM_DARK, events)}
+          {TEAM_DARK || copy.gamePage.darkTeam}{" "}
+          {getScoreByTeam(TEAM_DARK, events)}
         </span>
       </div>
       <main className="max-w-3xl w-full px-6 py-20 flex flex-col gap-8">
@@ -54,9 +55,11 @@ const GamePage = () => {
               <Button className={event.color} fullWidth size="lg">
                 {event.title}
               </Button>
-              <Popover.Content className="max-w-64">
+              <Popover.Content className="max-w-72 overflow-scroll">
                 <Popover.Dialog>
-                  <Popover.Heading>{event.addEvent}</Popover.Heading>
+                  <Popover.Heading className=" font-bold">
+                    {event.addEvent}
+                  </Popover.Heading>
                   <Form
                     className="flex flex-col gap-4"
                     onSubmit={(formEvent) =>
@@ -81,7 +84,11 @@ const GamePage = () => {
             </Popover>
           ))}
         </div>
-        {events && <EventTable events={events} />}
+        {events.length > 0 ? (
+          <EventTable events={events} />
+        ) : (
+          "Lets start the game!"
+        )}
       </main>
     </div>
   );

@@ -1,5 +1,19 @@
 export const copy = {
-  game: {
+  dashboardPage: {
+    title: "Dashboard",
+    subtitle: "My team",
+    links: {
+      startGame: "Start new game",
+      pastGames: "Past games",
+      addPlayers: "Add players",
+      reports: "Reports",
+    },
+    playersList: {
+      emptyState:
+        "A list of players will appear here once player data is available.",
+    },
+  },
+  gamePage: {
     lightTeam: "Light",
     darkTeam: "Dark",
     events: {

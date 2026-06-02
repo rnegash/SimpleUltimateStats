@@ -4,14 +4,16 @@ import type { GameEvent } from "../types";
 
 export const EventTable = ({ events }: { events: GameEvent[] }) => (
   <Table>
-    <Table.Content aria-label="Team members" className="min-w-150">
+    <Table.Content aria-label="Event history" className="min-w-150">
       <Table.Header>
         <Table.Column isRowHeader>
-          {copy.game.eventData.required.type}
+          {copy.gamePage.eventData.required.type}
         </Table.Column>
-        <Table.Column>{copy.game.eventData.required.team}</Table.Column>
-        <Table.Column>{copy.game.eventData.required.player}</Table.Column>
-        <Table.Column>{copy.game.eventData.required.timestamp}</Table.Column>
+        <Table.Column>{copy.gamePage.eventData.required.team}</Table.Column>
+        <Table.Column>{copy.gamePage.eventData.required.player}</Table.Column>
+        <Table.Column>
+          {copy.gamePage.eventData.required.timestamp}
+        </Table.Column>
       </Table.Header>
       <Table.Body>
         {events.toReversed().map((event) => (
