@@ -16,6 +16,7 @@ export const copy = {
   gamePage: {
     lightTeam: "Light",
     darkTeam: "Dark",
+    currentPossession: "Current Possession",
     events: {
       pull: {
         title: "Pull",
@@ -64,13 +65,16 @@ export const copy = {
         },
       },
     },
-    eventData: {
-      required: {
-        type: "Event type",
-        team: "Team",
-        player: "Player",
-        timestamp: "Timestamp",
+    eventTable: {
+      eventData: {
+        required: {
+          type: "Event type",
+          team: "Team",
+          player: "Player",
+          timestamp: "Timestamp",
+        },
       },
+      emptyState: "Lets start the game!",
     },
   },
 };

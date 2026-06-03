@@ -7,12 +7,16 @@ export const EventTable = ({ events }: { events: GameEvent[] }) => (
     <Table.Content aria-label="Event history" className="min-w-150">
       <Table.Header>
         <Table.Column isRowHeader>
-          {copy.gamePage.eventData.required.type}
+          {copy.gamePage.eventTable.eventData.required.type}
         </Table.Column>
-        <Table.Column>{copy.gamePage.eventData.required.team}</Table.Column>
-        <Table.Column>{copy.gamePage.eventData.required.player}</Table.Column>
         <Table.Column>
-          {copy.gamePage.eventData.required.timestamp}
+          {copy.gamePage.eventTable.eventData.required.team}
+        </Table.Column>
+        <Table.Column>
+          {copy.gamePage.eventTable.eventData.required.player}
+        </Table.Column>
+        <Table.Column>
+          {copy.gamePage.eventTable.eventData.required.timestamp}
         </Table.Column>
       </Table.Header>
       <Table.Body>

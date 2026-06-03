@@ -29,25 +29,32 @@ const eventButtons = [
   },
 ];
 
-export const TEAM_DARK = "Darks";
-export const TEAM_LIGHT = "Lights";
+export const teams = {
+  TEAM_DARK: "Darks",
+  TEAM_LIGHT: "Lights",
+} as const;
+
+type TeamKeys = keyof typeof teams;
+
+export type Team = (typeof teams)[TeamKeys];
 
 const GamePage = () => {
   const [events, setEvents] = useState<GameEvent[]>([]);
 
   return (
     <div className="min-h-screen flex flex-col items-center">
-      <div className="w-full justify-center text-2xl flex gap-2  ">
+      <div className="w-full justify-center text-2xl flex gap-2">
         <span>
-          {TEAM_LIGHT || copy.gamePage.lightTeam}{" "}
-          {getScoreByTeam(TEAM_LIGHT, events)}
+          {teams.TEAM_DARK || copy.gamePage.darkTeam}{" "}
+          {getScoreByTeam(teams.TEAM_DARK, events)}
         </span>
         -
         <span>
-          {TEAM_DARK || copy.gamePage.darkTeam}{" "}
-          {getScoreByTeam(TEAM_DARK, events)}
+          {teams.TEAM_LIGHT || copy.gamePage.lightTeam}{" "}
+          {getScoreByTeam(teams.TEAM_LIGHT, events)}
         </span>
       </div>
+
       <main className="max-w-3xl w-full px-6 py-20 flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           {eventButtons.map((event) => (
@@ -62,14 +69,14 @@ const GamePage = () => {
                   </Popover.Heading>
                   <Form
                     className="flex flex-col gap-4"
-                    onSubmit={(formEvent) =>
+                    onSubmit={(formEvent) => {
                       handleFormSubmit(
                         formEvent,
                         event.title.toLowerCase() as Event,
                         events,
                         setEvents,
-                      )
-                    }
+                      );
+                    }}
                   >
                     <EventFormElements
                       eventType={event.title.toLowerCase() as Event}
@@ -87,7 +94,7 @@ const GamePage = () => {
         {events.length > 0 ? (
           <EventTable events={events} />
         ) : (
-          "Lets start the game!"
+          copy.gamePage.eventTable.emptyState
         )}
       </main>
     </div>

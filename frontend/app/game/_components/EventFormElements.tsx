@@ -8,10 +8,11 @@ import {
   FieldError,
 } from "@heroui/react";
 import { outcomes, type Event } from "../types";
-import { TEAM_DARK, TEAM_LIGHT } from "../page";
+import { teams } from "../page";
 
 export const EventFormElements = ({ eventType }: { eventType: Event }) => {
   const { events } = copy.gamePage;
+  const { TEAM_DARK, TEAM_LIGHT } = teams;
 
   switch (eventType) {
     case "score":
