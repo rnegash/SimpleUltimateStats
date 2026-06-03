@@ -4,6 +4,7 @@ import type { Event, GameEvent } from "../types";
 import { getScoreByTeam } from "./getScoreByTeam";
 import { pullEventSchema } from "@/schemas/pullEvent";
 import { turnoverEventSchema } from "@/schemas/turnoverEvent";
+import { calculateGameTime } from "./calculateGameTime";
 
 export const handleFormSubmit = (
   e: React.FormEvent<HTMLFormElement>,
@@ -20,6 +21,8 @@ export const handleFormSubmit = (
     data[key] = value.toString();
   });
 
+  const timestamp = new Date().toISOString();
+  const gameStartTime = events[0]?.timestamp;
   switch (eventType) {
     case "score":
       const scoreData = scoreEventSchema.safeParse(data);
@@ -28,7 +31,8 @@ export const handleFormSubmit = (
         const newScoreEvent: GameEvent = {
           type: "score",
           teamId: scoreData.data.team,
-          timestamp: new Date().toISOString(),
+          timestamp,
+          gametime: calculateGameTime(timestamp, gameStartTime),
           playerId: scoreData.data.player,
           data: {
             assistBy: scoreData.data.assistBy,
@@ -50,7 +54,8 @@ export const handleFormSubmit = (
         const newPullEvent: GameEvent = {
           type: "pull",
           teamId: pullData.data.team,
-          timestamp: new Date().toISOString(),
+          timestamp,
+          gametime: calculateGameTime(timestamp, gameStartTime),
           playerId: pullData.data.player,
           data: {
             outcome: pullData.data.outcome,
@@ -70,7 +75,8 @@ export const handleFormSubmit = (
         const newTurnoverEvent: GameEvent = {
           type: "turnover",
           teamId: turnoverData.data.team,
-          timestamp: new Date().toISOString(),
+          timestamp,
+          gametime: calculateGameTime(timestamp, gameStartTime),
           playerId: turnoverData.data.player,
           data: {
             reason: turnoverData.data.reason,

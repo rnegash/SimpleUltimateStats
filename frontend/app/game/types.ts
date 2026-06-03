@@ -11,6 +11,7 @@ export type GameEvent =
       type: "score";
       teamId: string;
       timestamp: string;
+      gametime: string;
       playerId?: string;
       data?: {
         assistBy?: string;
@@ -21,6 +22,7 @@ export type GameEvent =
       type: "turnover";
       teamId: string;
       timestamp: string;
+      gametime: string;
       playerId?: string;
       data?: {
         reason?: string;
@@ -30,6 +32,7 @@ export type GameEvent =
       type: "pull";
       teamId: string;
       timestamp: string;
+      gametime: string;
       playerId?: string;
       data?: {
         outcome?: "in" | "out" | "caught";

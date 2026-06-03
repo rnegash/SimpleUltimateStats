@@ -27,7 +27,7 @@ export const EventTable = ({ events }: { events: GameEvent[] }) => (
             </Table.Cell>
             <Table.Cell>{event.teamId}</Table.Cell>
             <Table.Cell>{event.playerId}</Table.Cell>
-            <Table.Cell>{event.timestamp}</Table.Cell>
+            <Table.Cell>{event.gametime}</Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>

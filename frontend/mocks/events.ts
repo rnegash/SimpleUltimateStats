@@ -6,6 +6,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Lights",
     timestamp: "2026-05-31T14:02:15Z",
     playerId: "player12",
+    gametime: "00:00:00",
     data: {
       outcome: "in",
     },
@@ -15,6 +16,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Lights",
     timestamp: "2026-05-31T14:04:03Z",
     playerId: "Maya Johnson",
+    gametime: "00:01:48",
     data: {
       assistBy: "player12",
       points: 1,
@@ -25,6 +27,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Darks",
     timestamp: "2026-05-31T14:06:22Z",
     playerId: "player21",
+    gametime: "00:04:07",
     data: {
       outcome: "out",
     },
@@ -34,6 +37,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Darks",
     timestamp: "2026-05-31T14:06:40Z",
     playerId: "player21",
+    gametime: "00:04:25",
     data: {
       reason: "throwaway",
     },
@@ -43,6 +47,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Darks",
     timestamp: "2026-05-31T14:09:11Z",
     playerId: "Ethan Park",
+    gametime: "00:06:56",
     data: {
       points: 1,
     },
@@ -52,6 +57,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Lights",
     timestamp: "2026-05-31T14:11:30Z",
     playerId: "player07",
+    gametime: "00:09:15",
     data: {
       reason: "stall",
     },
@@ -61,6 +67,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Lights",
     timestamp: "2026-05-31T14:13:08Z",
     playerId: "player05",
+    gametime: "00:10:53",
     data: {
       outcome: "caught",
     },
@@ -70,6 +77,7 @@ export const sampleEvents: GameEvent[] = [
     teamId: "Darks",
     timestamp: "2026-05-31T14:19:11Z",
     playerId: "Ethan Park",
+    gametime: "00:16:56",
     data: {
       assistBy: "player12",
       points: 2,
