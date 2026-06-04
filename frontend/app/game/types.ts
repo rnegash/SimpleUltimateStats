@@ -13,7 +13,7 @@ export type GameEvent =
       timestamp: string;
       gametime: string;
       playerId?: string;
-      data?: {
+      data: {
         assistBy?: string;
         points?: number;
       };
@@ -24,7 +24,7 @@ export type GameEvent =
       timestamp: string;
       gametime: string;
       playerId?: string;
-      data?: {
+      data: {
         reason?: string;
       };
     }
@@ -34,7 +34,7 @@ export type GameEvent =
       timestamp: string;
       gametime: string;
       playerId?: string;
-      data?: {
+      data: {
         outcome?: "in" | "out" | "caught";
       };
     };

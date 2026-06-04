@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Form, Popover, Button } from "@heroui/react";
+import { Form, Popover, Button, Link } from "@heroui/react";
 
 import { copy } from "@/app/assets/strings";
 
@@ -42,7 +42,7 @@ const GamePage = () => {
   const [events, setEvents] = useState<GameEvent[]>([]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center p-6">
       <div className="w-full justify-center text-2xl flex gap-2">
         <span>
           {teams.TEAM_DARK || copy.gamePage.darkTeam}{" "}
@@ -90,6 +90,9 @@ const GamePage = () => {
               </Popover.Content>
             </Popover>
           ))}
+        </div>
+        <div className="flex gap-4">
+          <Button>{copy.gamePage.events.actions.save}</Button>
         </div>
         {events.length > 0 ? (
           <EventTable events={events} />

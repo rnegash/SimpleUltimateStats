@@ -71,7 +71,6 @@ const DashboardPage = ({}) => {
               <tbody className="divide-y divide-slate-200 bg-white">
                 <tr>
                   <td className="px-6 py-5 text-slate-900">
-                    {" "}
                     {copy.dashboardPage.playersList.emptyState}
                   </td>
                   <td className="px-6 py-5 text-slate-500">—</td>

@@ -64,6 +64,10 @@ export const copy = {
           },
         },
       },
+      actions: {
+        save: "Save game",
+        back: "Back to dashboard",
+      },
     },
     eventTable: {
       eventData: {
