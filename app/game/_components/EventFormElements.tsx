@@ -7,7 +7,7 @@ import {
   Input,
   FieldError,
 } from "@heroui/react";
-import { outcomes, type Event } from "../types";
+import { pullOutcomes, turnoverReasons, type Event } from "../types";
 import { teams } from "../page";
 
 export const EventFormElements = ({ eventType }: { eventType: Event }) => {
@@ -83,11 +83,19 @@ export const EventFormElements = ({ eventType }: { eventType: Event }) => {
             <Input placeholder={turnover.eventData.player.label} />
             <FieldError />
           </TextField>
-          <TextField name="reason" type="text">
-            <Label>{turnover.eventData.reason.label}</Label>
-            <Input placeholder={turnover.eventData.reason.label} />
-            <FieldError />
-          </TextField>
+          <RadioGroup name="reason">
+            <Label>Reason</Label>
+            {turnoverReasons.map((reason) => (
+              <Radio key={reason} value={reason}>
+                <Radio.Control>
+                  <Radio.Indicator />
+                </Radio.Control>
+                <Radio.Content>
+                  <Label>{reason}</Label>
+                </Radio.Content>
+              </Radio>
+            ))}
+          </RadioGroup>
         </>
       );
 
@@ -124,7 +132,7 @@ export const EventFormElements = ({ eventType }: { eventType: Event }) => {
 
           <RadioGroup name="outcome">
             <Label>Outcome</Label>
-            {outcomes.map((outcome) => (
+            {pullOutcomes.map((outcome) => (
               <Radio key={outcome} value={outcome}>
                 <Radio.Control>
                   <Radio.Indicator />

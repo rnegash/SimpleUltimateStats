@@ -39,7 +39,7 @@ export const sampleEvents: GameEvent[] = [
     playerId: "player21",
     gametime: "00:04:25",
     data: {
-      reason: "throwaway",
+      reason: "thrower error",
     },
   },
   {
@@ -59,7 +59,7 @@ export const sampleEvents: GameEvent[] = [
     playerId: "player07",
     gametime: "00:09:15",
     data: {
-      reason: "stall",
+      reason: "thrower error",
     },
   },
   {

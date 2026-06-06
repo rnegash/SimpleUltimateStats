@@ -15,7 +15,7 @@ export const users = pgTable("users", {
 export const games = pgTable("games", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-  date: timestamp().defaultNow(),
+  createdAt: timestamp().defaultNow().notNull(),
 });
 
 export const players = pgTable("players", {
@@ -24,7 +24,7 @@ export const players = pgTable("players", {
 });
 
 const sharedEventFields = {
-  gameId: integer("game_id")
+  gameId: integer()
     .references(() => games.id)
     .notNull(),
   team: varchar({ length: 255 }).notNull(),
@@ -35,14 +35,14 @@ const sharedEventFields = {
 
 export const scoreEvents = pgTable("score_events", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  assistBy: varchar("assist_by", { length: 255 }),
+  assistBy: varchar({ length: 255 }),
   points: integer(),
   ...sharedEventFields,
 });
 
 export const turnoverEvents = pgTable("turnover_events", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  reason: varchar({ length: 255 }),
+  reason: text({ enum: ["thrower error", "receiver error"] }),
   ...sharedEventFields,
 });
 

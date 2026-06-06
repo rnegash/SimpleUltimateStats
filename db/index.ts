@@ -2,13 +2,16 @@ import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { games, scoreEvents, turnoverEvents, pullEvents } from "./schema";
 
-const db = drizzle(process.env.DATABASE_URL!);
+const db = drizzle({
+  connection: process.env.DATABASE_URL!,
+  casing: "snake_case",
+});
 
 async function main() {
   // Create a game
   const game: typeof games.$inferInsert = {
     name: "Ultimate Tournament 2026",
-    date: new Date(),
+    createdAt: new Date(),
   };
 
   const insertedGame = await db.insert(games).values(game).returning();
@@ -36,7 +39,7 @@ async function main() {
     timestamp: "2026-05-31T14:12:45Z",
     gametime: "00:12:45",
     player: "Charlie",
-    reason: "drop",
+    reason: "receiver error",
   };
 
   await db.insert(turnoverEvents).values(turnoverEvent);

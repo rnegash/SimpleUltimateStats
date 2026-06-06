@@ -2,9 +2,13 @@ export const eventType = ["score", "turnover", "pull"] as const;
 
 export type Event = (typeof eventType)[number];
 
-export const outcomes = ["in", "out", "caught"] as const;
+export const pullOutcomes = ["in", "out", "caught", ""] as const;
 
-export type Outcome = (typeof eventType)[number];
+export type PullOutcome = (typeof pullOutcomes)[number];
+
+export const turnoverReasons = ["thrower error", "receiver error", ""] as const;
+
+export type TurnoverReason = (typeof turnoverReasons)[number];
 
 export type GameEvent =
   | {
@@ -25,7 +29,7 @@ export type GameEvent =
       gametime: string;
       playerId?: string;
       data: {
-        reason?: string;
+        reason?: TurnoverReason;
       };
     }
   | {
@@ -35,6 +39,6 @@ export type GameEvent =
       gametime: string;
       playerId?: string;
       data: {
-        outcome?: "in" | "out" | "caught";
+        outcome?: PullOutcome;
       };
     };
