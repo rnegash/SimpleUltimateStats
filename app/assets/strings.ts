@@ -1,5 +1,16 @@
 export const copy = {
   dashboardPage: {
+    pastGamesPage: {
+      gameList: {
+        emptyState:
+          "A list of games will appear here once game data is available.",
+        columns: {
+          game: "Game",
+          result: "Result",
+          date: "Date",
+        },
+      },
+    },
     title: "Dashboard",
     subtitle: "My team",
     links: {
@@ -9,6 +20,10 @@ export const copy = {
       reports: "Reports",
     },
     playersList: {
+      columns: {
+        player: "Player",
+        position: "Position",
+      },
       emptyState:
         "A list of players will appear here once player data is available.",
     },
