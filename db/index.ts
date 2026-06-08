@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { games, scoreEvents, turnoverEvents, pullEvents } from "./schema";
+import { games, eventsTable } from "./schema";
 
 const db = drizzle({
   connection: process.env.DATABASE_URL!,
@@ -19,42 +19,48 @@ async function main() {
   console.log("New game created:", insertedGame[0]);
 
   // Add score events
-  const scoreEvent: typeof scoreEvents.$inferInsert = {
+  const scoreEvent: typeof eventsTable.$inferInsert = {
     gameId,
     team: "Team A",
     timestamp: "2026-05-31T14:05:03Z",
     gametime: "00:05:30",
     player: "Alice",
-    assistBy: "Bob",
-    points: 1,
+    additionalStats: {
+      assistBy: "Bob",
+      points: 1,
+    },
   };
 
-  await db.insert(scoreEvents).values(scoreEvent);
+  await db.insert(eventsTable).values(scoreEvent);
   console.log("Score event added!");
 
   // Add turnover events
-  const turnoverEvent: typeof turnoverEvents.$inferInsert = {
+  const turnoverEvent: typeof eventsTable.$inferInsert = {
     gameId,
     team: "Team B",
     timestamp: "2026-05-31T14:12:45Z",
     gametime: "00:12:45",
     player: "Charlie",
-    reason: "receiver error",
+    additionalStats: {
+      reason: "receiver error",
+    },
   };
 
-  await db.insert(turnoverEvents).values(turnoverEvent);
+  await db.insert(eventsTable).values(turnoverEvent);
   console.log("Turnover event added!");
 
   // Add pull events
-  const pullEvent: typeof pullEvents.$inferInsert = {
+  const pullEvent: typeof eventsTable.$inferInsert = {
     gameId,
     team: "Team A",
     timestamp: "2026-05-31T14:13:00Z",
     gametime: "00:13:400",
-    outcome: "caught",
+    additionalStats: {
+      outcome: "caught",
+    },
   };
 
-  await db.insert(pullEvents).values(pullEvent);
+  await db.insert(eventsTable).values(pullEvent);
   console.log("Pull event added!");
 
   // Fetch all games
