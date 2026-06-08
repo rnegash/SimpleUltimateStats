@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { games, eventsTable } from "./schema";
+import { gamesTable, usersTable, eventsTable } from "./schema";
 
 const db = drizzle({
   connection: process.env.DATABASE_URL!,
@@ -8,13 +8,21 @@ const db = drizzle({
 });
 
 async function main() {
-  // Create a game
-  const game: typeof games.$inferInsert = {
-    name: "Ultimate Tournament 2026",
+  const user: typeof usersTable.$inferInsert = {
+    name: "Coach R",
     createdAt: new Date(),
   };
 
-  const insertedGame = await db.insert(games).values(game).returning();
+  const insertedUser = await db.insert(usersTable).values(user).returning();
+
+  // Create a game
+  const game: typeof gamesTable.$inferInsert = {
+    name: "Ultimate Tournament 2026",
+    createdAt: new Date(),
+    createdBy: insertedUser[0].id,
+  };
+
+  const insertedGame = await db.insert(gamesTable).values(game).returning();
   const gameId = insertedGame[0].id;
   console.log("New game created:", insertedGame[0]);
 
@@ -64,7 +72,7 @@ async function main() {
   console.log("Pull event added!");
 
   // Fetch all games
-  const allGames = await db.select().from(games);
+  const allGames = await db.select().from(gamesTable);
   console.log("All games:", allGames);
 }
 

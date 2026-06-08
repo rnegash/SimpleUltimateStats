@@ -9,27 +9,36 @@ import {
 import { defineRelations } from "drizzle-orm";
 import { eventType } from "@/app/game/types";
 
-export const users = pgTable("users", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  name: varchar({ length: 255 }).notNull(),
-});
-
-export const games = pgTable("games", {
+export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
   createdAt: timestamp().defaultNow().notNull(),
 });
 
+export const gamesTable = pgTable("games", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar({ length: 255 }).notNull(),
+  createdAt: timestamp().defaultNow().notNull(),
+  createdBy: integer()
+    .references(() => usersTable.id)
+    .notNull(),
+});
+
 export const players = pgTable("players", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
+  createdAt: timestamp().defaultNow().notNull(),
+  createdBy: integer()
+    .references(() => usersTable.id)
+    .notNull(),
 });
 
 export const eventsTable = pgTable("events", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  createdAt: timestamp().defaultNow().notNull(),
   eventType: text({ enum: eventType }),
   gameId: integer()
-    .references(() => games.id)
+    .references(() => gamesTable.id)
     .notNull(),
   team: varchar({ length: 255 }).notNull(),
   timestamp: varchar({ length: 255 }).notNull(),
@@ -38,15 +47,40 @@ export const eventsTable = pgTable("events", {
   additionalStats: json(),
 });
 
-export const relations = defineRelations({ games, eventsTable }, (r) => ({
-  eventsTable: {
-    game: r.one.games({
-      from: r.eventsTable.gameId,
-      to: r.games.id,
-    }),
-  },
-
-  games: {
-    turnovers: r.many.eventsTable(),
-  },
-}));
+export const relations = defineRelations(
+  { usersTable, gamesTable, players, eventsTable },
+  (r) => ({
+    usersTable: {
+      games: r.many.gamesTable({
+        from: r.usersTable.id,
+        to: r.gamesTable.createdBy,
+      }),
+      players: r.many.players({
+        from: r.usersTable.id,
+        to: r.players.createdBy,
+      }),
+    },
+    gamesTable: {
+      createdByUser: r.one.usersTable({
+        from: r.gamesTable.createdBy,
+        to: r.usersTable.id,
+      }),
+      events: r.many.eventsTable({
+        from: r.gamesTable.id,
+        to: r.eventsTable.gameId,
+      }),
+    },
+    players: {
+      createdByUser: r.one.usersTable({
+        from: r.players.createdBy,
+        to: r.usersTable.id,
+      }),
+    },
+    eventsTable: {
+      game: r.one.gamesTable({
+        from: r.eventsTable.gameId,
+        to: r.gamesTable.id,
+      }),
+    },
+  }),
+);
