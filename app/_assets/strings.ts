@@ -22,10 +22,17 @@ export const copy = {
     playersList: {
       columns: {
         player: "Player",
-        position: "Position",
+        position: "Joined",
       },
       emptyState:
         "A list of players will appear here once player data is available.",
+    },
+    addPlayersPage: {
+      form: {
+        nameLabel: "Player name",
+        namePlaceholder: "Enter player name",
+        submit: "Add player",
+      },
     },
   },
   gamePage: {

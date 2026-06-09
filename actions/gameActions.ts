@@ -12,7 +12,7 @@ export const getGamesData = async () => {
 export const addGame = async (gameEvents: GameEvent[]) => {
   const newGame = await db
     .insert(gamesTable)
-    .values({ createdBy: 0, name: "Coach R" })
+    .values({ createdBy: 1, name: "Training 09.06" })
     .returning();
 
   const events = gameEvents.map((event) => ({

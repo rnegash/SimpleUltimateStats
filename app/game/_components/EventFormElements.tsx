@@ -1,16 +1,67 @@
+"use client";
+
 import { copy } from "@/app/_assets/strings";
 import {
+  ComboBox,
+  ListBox,
+  ListBoxItem,
   RadioGroup,
   Label,
   Radio,
-  TextField,
   Input,
-  FieldError,
 } from "@heroui/react";
 import { pullOutcomes, turnoverReasons, type Event } from "../types";
-import { teams } from "../page";
+import { teams } from "../constants";
 
-export const EventFormElements = ({ eventType }: { eventType: Event }) => {
+type PlayerOption = {
+  name: string;
+};
+
+type PlayerPickerProps = {
+  players: PlayerOption[];
+  label: string;
+  placeholder: string;
+  name: string;
+};
+
+const PlayerPicker = ({
+  players,
+  label,
+  placeholder,
+  name,
+}: PlayerPickerProps) => (
+  <ComboBox.Root
+    items={players}
+    name={name}
+    allowsCustomValue
+    formValue="text"
+    className="w-full"
+  >
+    <ComboBox.InputGroup>
+      <Label>{label}</Label>
+      <Input placeholder={placeholder} />
+      <ComboBox.Trigger />
+    </ComboBox.InputGroup>
+
+    <ComboBox.Popover>
+      <ListBox className="max-h-60 overflow-auto p-2">
+        {players.map((player) => (
+          <ListBoxItem key={player.name} textValue={player.name}>
+            {player.name}
+          </ListBoxItem>
+        ))}
+      </ListBox>
+    </ComboBox.Popover>
+  </ComboBox.Root>
+);
+
+export const EventFormElements = ({
+  eventType,
+  players,
+}: {
+  eventType: Event;
+  players: PlayerOption[];
+}) => {
   const { events } = copy.gamePage;
   const { TEAM_DARK, TEAM_LIGHT } = teams;
 
@@ -40,16 +91,18 @@ export const EventFormElements = ({ eventType }: { eventType: Event }) => {
               </Radio.Content>
             </Radio>
           </RadioGroup>
-          <TextField name="player" type="text">
-            <Label>{score.eventData.player.label}</Label>
-            <Input placeholder={score.eventData.player.label} />
-            <FieldError />
-          </TextField>
-          <TextField name="assistBy" type="text">
-            <Label>{score.eventData.assistBy.label}</Label>
-            <Input placeholder={score.eventData.assistBy.label} />
-            <FieldError />
-          </TextField>
+          <PlayerPicker
+            players={players}
+            label={score.eventData.player.label}
+            name="player"
+            placeholder={score.eventData.player.label}
+          />
+          <PlayerPicker
+            players={players}
+            name="assistBy"
+            label={score.eventData.assistBy.label}
+            placeholder={score.eventData.assistBy.label}
+          />
         </>
       );
 
@@ -78,11 +131,12 @@ export const EventFormElements = ({ eventType }: { eventType: Event }) => {
               </Radio.Content>
             </Radio>
           </RadioGroup>
-          <TextField name="player" type="text">
-            <Label>{turnover.eventData.player.label}</Label>
-            <Input placeholder={turnover.eventData.player.label} />
-            <FieldError />
-          </TextField>
+          <PlayerPicker
+            name="player"
+            players={players}
+            label={turnover.eventData.player.label}
+            placeholder={turnover.eventData.player.label}
+          />
           <RadioGroup name="reason">
             <Label>Reason</Label>
             {turnoverReasons.map((reason) => (
@@ -124,11 +178,12 @@ export const EventFormElements = ({ eventType }: { eventType: Event }) => {
               </Radio.Content>
             </Radio>
           </RadioGroup>
-          <TextField name="player" type="text">
-            <Label>{pull.eventData.player.label}</Label>
-            <Input placeholder={pull.eventData.player.label} />
-            <FieldError />
-          </TextField>
+          <PlayerPicker
+            name="player"
+            players={players}
+            label={pull.eventData.player.label}
+            placeholder={pull.eventData.player.label}
+          />
 
           <RadioGroup name="outcome">
             <Label>Outcome</Label>
