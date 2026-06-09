@@ -1,7 +1,7 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "6b650aba-a55d-41e2-9215-7a0bd4ba6516",
+  "id": "fc420334-e65a-432a-9966-d3064476cb53",
   "prevIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
@@ -192,6 +192,19 @@
       "table": "games"
     },
     {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "final_score",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "games"
+    },
+    {
       "type": "timestamp",
       "typeSchema": null,
       "notNull": true,
@@ -248,6 +261,19 @@
       "generated": null,
       "identity": null,
       "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "players"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "position",
       "entityType": "columns",
       "schema": "public",
       "table": "players"

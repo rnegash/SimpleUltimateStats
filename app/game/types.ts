@@ -10,6 +10,10 @@ export const turnoverReasons = ["thrower error", "receiver error", ""] as const;
 
 export type TurnoverReason = (typeof turnoverReasons)[number];
 
+export const playerPositions = ["handler", "cutter", "hybrid"] as const;
+
+export type PlayerPositions = (typeof playerPositions)[number];
+
 export type GameEvent =
   | {
       type: "score";

@@ -13,6 +13,7 @@ CREATE TABLE "events" (
 CREATE TABLE "games" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "games_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"name" varchar(255) NOT NULL,
+	"final_score" varchar(255) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"created_by" integer NOT NULL
 );
@@ -20,6 +21,7 @@ CREATE TABLE "games" (
 CREATE TABLE "players" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "players_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"name" varchar(255) NOT NULL,
+	"position" text,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"created_by" integer NOT NULL
 );

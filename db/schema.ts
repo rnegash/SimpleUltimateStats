@@ -18,6 +18,7 @@ export const usersTable = pgTable("users", {
 export const gamesTable = pgTable("games", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
+  finalScore: varchar("final_score", { length: 255 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   createdBy: integer("created_by")
     .references(() => usersTable.id)
@@ -27,6 +28,7 @@ export const gamesTable = pgTable("games", {
 export const players = pgTable("players", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
+  position: text({ enum: ["handler", "cutter", "hybrid"] }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   createdBy: integer("created_by")
     .references(() => usersTable.id)

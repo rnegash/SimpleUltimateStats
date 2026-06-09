@@ -3,6 +3,7 @@
 import { db } from "@/db/server";
 import { players, usersTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { PlayerPositions } from "@/app/game/types";
 
 export const addUser = async (name: string) => {
   try {
@@ -15,14 +16,14 @@ export const addUser = async (name: string) => {
   }
 };
 
-export const addPlayer = async (formData: FormData) => {
-  const name = formData.get("name");
-
+export const addPlayer = async (name: string, position?: PlayerPositions) => {
   if (typeof name !== "string" || name.trim().length === 0) {
     throw new Error("Player name is required.");
   }
 
-  await db.insert(players).values({ name: name.trim(), createdBy: 1 });
+  await db
+    .insert(players)
+    .values({ name: name.trim(), position, createdBy: 1 });
 };
 
 export const getPlayers = async () => {

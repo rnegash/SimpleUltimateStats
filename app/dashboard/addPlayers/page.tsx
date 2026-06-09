@@ -1,5 +1,7 @@
 import { copy } from "../../_assets/strings";
 import { addPlayer } from "@/actions/userActions";
+import { playerPositions } from "@/app/game/types";
+import { newPlayerSchema } from "@/schemas/newPlayer";
 import {
   Form,
   TextField,
@@ -7,6 +9,8 @@ import {
   Input,
   Button,
   FieldError,
+  RadioGroup,
+  Radio,
 } from "@heroui/react";
 
 const AddPlayersPage = ({}) => {
@@ -18,7 +22,30 @@ const AddPlayersPage = ({}) => {
         </div>
       </div>
 
-      <Form action={addPlayer} className="space-y-6">
+      <Form
+        onSubmit={async (formEvent) => {
+          formEvent.preventDefault();
+          const formData = new FormData(formEvent.currentTarget);
+
+          const data: Record<string, string> = {};
+
+          // Convert FormData to plain object
+          formData.forEach((value, key) => {
+            data[key] = value.toString();
+          });
+
+          const newPlayer = await newPlayerSchema.safeParse(data);
+
+          if (newPlayer.error || !newPlayer.data) {
+            console.error("newPlayer error");
+          }
+
+          if (newPlayer.success) {
+            addPlayer(newPlayer.data.name, newPlayer.data.position);
+          }
+        }}
+        className="space-y-6"
+      >
         <TextField name="name" type="text">
           <Label>{copy.dashboardPage.addPlayersPage.form.nameLabel}</Label>
           <Input
@@ -26,6 +53,20 @@ const AddPlayersPage = ({}) => {
           />
           <FieldError />
         </TextField>
+
+        <RadioGroup name="position">
+          <Label>Position</Label>
+          {playerPositions.map((position) => (
+            <Radio key={position} value={position}>
+              <Radio.Control>
+                <Radio.Indicator />
+              </Radio.Control>
+              <Radio.Content>
+                <Label>{position}</Label>
+              </Radio.Content>
+            </Radio>
+          ))}
+        </RadioGroup>
 
         <Button type="submit">
           {copy.dashboardPage.addPlayersPage.form.submit}
