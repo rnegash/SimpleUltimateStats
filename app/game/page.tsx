@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Form, Popover, Button, Link } from "@heroui/react";
+import { Form, Popover, Button } from "@heroui/react";
 
-import { copy } from "@/app/assets/strings";
+import { copy } from "@/app/_assets/strings";
 
-import { sampleEvents } from "../../mocks/events";
+//import { sampleEvents } from "../../mocks/events";
 import { getScoreByTeam } from "./_utils/getScoreByTeam";
 
 import type { GameEvent, Event } from "./types";
@@ -12,6 +12,7 @@ import { EventTable } from "./_components/EventTable";
 
 import { EventFormElements } from "./_components/EventFormElements";
 import { handleFormSubmit } from "./_utils/handleFormSubmit";
+import { addGame } from "@/actions/gameActions";
 
 const eventButtons = [
   {
@@ -92,7 +93,9 @@ const GamePage = () => {
           ))}
         </div>
         <div className="flex gap-4">
-          <Button>{copy.gamePage.events.actions.save}</Button>
+          <Button onClick={async () => await addGame(events)}>
+            {copy.gamePage.events.actions.save}
+          </Button>
         </div>
         {events.length > 0 ? (
           <EventTable events={events} />

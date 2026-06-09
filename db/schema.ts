@@ -12,14 +12,14 @@ import { eventType } from "@/app/game/types";
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-  createdAt: timestamp().defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const gamesTable = pgTable("games", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-  createdAt: timestamp().defaultNow().notNull(),
-  createdBy: integer()
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdBy: integer("created_by")
     .references(() => usersTable.id)
     .notNull(),
 });
@@ -27,24 +27,24 @@ export const gamesTable = pgTable("games", {
 export const players = pgTable("players", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
-  createdAt: timestamp().defaultNow().notNull(),
-  createdBy: integer()
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdBy: integer("created_by")
     .references(() => usersTable.id)
     .notNull(),
 });
 
 export const eventsTable = pgTable("events", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  createdAt: timestamp().defaultNow().notNull(),
-  eventType: text({ enum: eventType }),
-  gameId: integer()
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  eventType: text("event_type", { enum: eventType }),
+  gameId: integer("game_id")
     .references(() => gamesTable.id)
     .notNull(),
   team: varchar({ length: 255 }).notNull(),
   timestamp: varchar({ length: 255 }).notNull(),
   gametime: varchar({ length: 255 }).notNull(),
   player: varchar({ length: 255 }),
-  additionalStats: json(),
+  additionalStats: json("additional_stats"),
 });
 
 export const relations = defineRelations(

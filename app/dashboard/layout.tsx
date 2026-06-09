@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { copy } from "../assets/strings";
+import { copy } from "../_assets/strings";
 
 const DashboardLayout = ({
   children,

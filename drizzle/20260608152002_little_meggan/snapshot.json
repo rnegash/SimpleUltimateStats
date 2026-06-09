@@ -1,7 +1,7 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "32259743-7881-4767-a7ad-da0919921daa",
+  "id": "6b650aba-a55d-41e2-9215-7a0bd4ba6516",
   "prevIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
@@ -60,7 +60,7 @@
       "default": "now()",
       "generated": null,
       "identity": null,
-      "name": "createdAt",
+      "name": "created_at",
       "entityType": "columns",
       "schema": "public",
       "table": "events"
@@ -73,7 +73,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "eventType",
+      "name": "event_type",
       "entityType": "columns",
       "schema": "public",
       "table": "events"
@@ -86,7 +86,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "gameId",
+      "name": "game_id",
       "entityType": "columns",
       "schema": "public",
       "table": "events"
@@ -151,7 +151,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "additionalStats",
+      "name": "additional_stats",
       "entityType": "columns",
       "schema": "public",
       "table": "events"
@@ -199,7 +199,7 @@
       "default": "now()",
       "generated": null,
       "identity": null,
-      "name": "createdAt",
+      "name": "created_at",
       "entityType": "columns",
       "schema": "public",
       "table": "games"
@@ -212,7 +212,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "createdBy",
+      "name": "created_by",
       "entityType": "columns",
       "schema": "public",
       "table": "games"
@@ -260,7 +260,7 @@
       "default": "now()",
       "generated": null,
       "identity": null,
-      "name": "createdAt",
+      "name": "created_at",
       "entityType": "columns",
       "schema": "public",
       "table": "players"
@@ -273,7 +273,7 @@
       "default": null,
       "generated": null,
       "identity": null,
-      "name": "createdBy",
+      "name": "created_by",
       "entityType": "columns",
       "schema": "public",
       "table": "players"
@@ -321,7 +321,7 @@
       "default": "now()",
       "generated": null,
       "identity": null,
-      "name": "createdAt",
+      "name": "created_at",
       "entityType": "columns",
       "schema": "public",
       "table": "users"
@@ -329,7 +329,7 @@
     {
       "nameExplicit": false,
       "columns": [
-        "gameId"
+        "game_id"
       ],
       "schemaTo": "public",
       "tableTo": "games",
@@ -338,7 +338,7 @@
       ],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
-      "name": "events_gameId_games_id_fkey",
+      "name": "events_game_id_games_id_fkey",
       "entityType": "fks",
       "schema": "public",
       "table": "events"
@@ -346,7 +346,7 @@
     {
       "nameExplicit": false,
       "columns": [
-        "createdBy"
+        "created_by"
       ],
       "schemaTo": "public",
       "tableTo": "users",
@@ -355,7 +355,7 @@
       ],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
-      "name": "games_createdBy_users_id_fkey",
+      "name": "games_created_by_users_id_fkey",
       "entityType": "fks",
       "schema": "public",
       "table": "games"
@@ -363,7 +363,7 @@
     {
       "nameExplicit": false,
       "columns": [
-        "createdBy"
+        "created_by"
       ],
       "schemaTo": "public",
       "tableTo": "users",
@@ -372,7 +372,7 @@
       ],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
-      "name": "players_createdBy_users_id_fkey",
+      "name": "players_created_by_users_id_fkey",
       "entityType": "fks",
       "schema": "public",
       "table": "players"

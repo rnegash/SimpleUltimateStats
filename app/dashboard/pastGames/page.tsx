@@ -1,7 +1,9 @@
-import { copy } from "../../assets/strings";
+import { getGamesData } from "@/actions/gameActions";
+import { copy } from "../../_assets/strings";
 
-const PastGamesPage = ({}) => {
-  const data = null;
+const PastGamesPage = async ({}) => {
+  const data = await getGamesData();
+
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
       <div className="mb-6 flex items-center justify-between">

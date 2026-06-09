@@ -1,4 +1,4 @@
-import { copy } from "../assets/strings";
+import { copy } from "../_assets/strings";
 
 const DashboardPage = ({}) => {
   const data = null;

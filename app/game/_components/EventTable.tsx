@@ -1,4 +1,4 @@
-import { copy } from "@/app/assets/strings";
+import { copy } from "@/app/_assets/strings";
 import { Table } from "@heroui/react/table";
 import type { GameEvent } from "../types";
 
