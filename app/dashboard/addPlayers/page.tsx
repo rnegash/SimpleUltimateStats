@@ -12,6 +12,7 @@ import {
   RadioGroup,
   Radio,
 } from "@heroui/react";
+import { handleFormSubmit } from "./_utils/handleFormSubmit";
 
 const AddPlayersPage = ({}) => {
   return (
@@ -22,30 +23,7 @@ const AddPlayersPage = ({}) => {
         </div>
       </div>
 
-      <Form
-        onSubmit={async (formEvent) => {
-          formEvent.preventDefault();
-          const formData = new FormData(formEvent.currentTarget);
-
-          const data: Record<string, string> = {};
-
-          // Convert FormData to plain object
-          formData.forEach((value, key) => {
-            data[key] = value.toString();
-          });
-
-          const newPlayer = await newPlayerSchema.safeParse(data);
-
-          if (newPlayer.error || !newPlayer.data) {
-            console.error("newPlayer error");
-          }
-
-          if (newPlayer.success) {
-            addPlayer(newPlayer.data.name, newPlayer.data.position);
-          }
-        }}
-        className="space-y-6"
-      >
+      <Form onSubmit={handleFormSubmit} className="space-y-6">
         <TextField name="name" type="text">
           <Label>{copy.dashboardPage.addPlayersPage.form.nameLabel}</Label>
           <Input

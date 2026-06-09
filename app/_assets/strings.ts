@@ -1,3 +1,5 @@
+import { eventType } from "../game/types";
+
 export const copy = {
   dashboardPage: {
     pastGamesPage: {
@@ -35,13 +37,23 @@ export const copy = {
       },
     },
   },
+  authPage: {
+    registerPage: {
+      title: "Register",
+      subtitle: "Create an account to start tracking stats.",
+      nameLabel: "Name",
+      emailLabel: "Email",
+      passwordLabel: "Password",
+      submit: "Create account",
+    },
+  },
   gamePage: {
     lightTeam: "Light",
     darkTeam: "Dark",
     currentPossession: "Current Possession",
     events: {
       pull: {
-        title: "Pull",
+        title: eventType[2],
         addEvent: "Add Pull event",
         eventData: {
           team: {
@@ -57,7 +69,7 @@ export const copy = {
         },
       },
       score: {
-        title: "Score",
+        title: eventType[0],
         addEvent: "Add Score event",
         eventData: {
           team: {
@@ -72,7 +84,7 @@ export const copy = {
         },
       },
       turnover: {
-        title: "Turnover",
+        title: eventType[1],
         addEvent: "Add Turnover event",
         eventData: {
           team: {

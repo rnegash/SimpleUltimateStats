@@ -28,7 +28,10 @@ const eventButtons = [
   },
 ];
 
+export type EventButton = (typeof eventButtons)[0];
+
 import { teams } from "./constants";
+import { AddEventPopover } from "./_components/AddEventPopover";
 
 const ClientGame = ({ players }: { players: { name: string }[] }) => {
   const [events, setEvents] = useState<GameEvent[]>([]);
@@ -50,38 +53,13 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
       <main className="max-w-3xl w-full px-6 py-20 flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           {eventButtons.map((event) => (
-            <Popover key={event.title}>
-              <Button className={event.color} fullWidth size="lg">
-                {event.title}
-              </Button>
-              <Popover.Content className="max-w-72 overflow-scroll">
-                <Popover.Dialog>
-                  <Popover.Heading className=" font-bold">
-                    {event.addEvent}
-                  </Popover.Heading>
-                  <Form
-                    className="flex flex-col gap-4"
-                    onSubmit={(formEvent) => {
-                      handleFormSubmit(
-                        formEvent,
-                        event.title.toLowerCase() as Event,
-                        events,
-                        setEvents,
-                      );
-                    }}
-                  >
-                    <EventFormElements
-                      eventType={event.title.toLowerCase() as Event}
-                      players={players}
-                    />
-
-                    <div className="flex gap-2">
-                      <Button type="submit">Submit</Button>
-                    </div>
-                  </Form>
-                </Popover.Dialog>
-              </Popover.Content>
-            </Popover>
+            <AddEventPopover
+              key={event.title}
+              players={players}
+              event={event}
+              events={events}
+              setEvents={setEvents}
+            />
           ))}
         </div>
         <div className="flex gap-4">
