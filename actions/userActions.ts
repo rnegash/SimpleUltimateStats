@@ -5,9 +5,12 @@ import { players, usersTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { PlayerPositions } from "@/app/game/types";
 
-export const addUser = async (name: string) => {
+export const addUser = async (name: string, email: string) => {
   try {
-    const newUser = await db.insert(usersTable).values({ name }).returning();
+    const newUser = await db
+      .insert(usersTable)
+      .values({ name, email, externalId: "" })
+      .returning();
     console.log("newUser", newUser[0]);
     return newUser[0];
   } catch (error) {
@@ -16,16 +19,6 @@ export const addUser = async (name: string) => {
   }
 };
 
-export const addPlayer = async (name: string, position?: PlayerPositions) => {
-  if (typeof name !== "string" || name.trim().length === 0) {
-    throw new Error("Player name is required.");
-  }
-
-  await db
-    .insert(players)
-    .values({ name: name.trim(), position, createdBy: 1 });
-};
-
-export const getPlayers = async () => {
-  return await db.select().from(players).where(eq(players.createdBy, 1));
+export const getCurrentUserId = async () => {
+  return 1;
 };

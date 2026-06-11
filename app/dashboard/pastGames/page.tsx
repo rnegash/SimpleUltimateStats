@@ -33,7 +33,7 @@ const PastGamesPage = async ({}) => {
               {data.map((game) => (
                 <Table.Row key={game.id}>
                   <Table.Cell>{game.name}</Table.Cell>
-                  <Table.Cell>{game.createdBy}</Table.Cell>
+                  <Table.Cell>{game.finalScore}</Table.Cell>
                   <Table.Cell>
                     {new Date(game.createdAt).toISOString()}
                   </Table.Cell>
