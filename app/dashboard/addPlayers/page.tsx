@@ -1,3 +1,4 @@
+"use client";
 import { copy } from "../../_assets/strings";
 import { playerPositions } from "@/app/game/types";
 import {
