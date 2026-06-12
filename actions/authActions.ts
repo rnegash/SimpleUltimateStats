@@ -46,9 +46,6 @@ export async function ensureAppUser() {
 
 export async function getAppUserId() {
   const user = await ensureAppUser();
-  return user.id;
-}
 
-export async function syncAppUser() {
-  await ensureAppUser();
+  return user.id;
 }

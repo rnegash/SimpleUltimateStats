@@ -5,7 +5,6 @@ import { playersTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { PlayerPositions } from "@/app/game/types";
 import { getAppUserId } from "./authActions";
-import { revalidatePath } from "next/cache";
 
 export const addPlayer = async (name: string, position?: PlayerPositions) => {
   if (typeof name !== "string" || name.trim().length === 0) {

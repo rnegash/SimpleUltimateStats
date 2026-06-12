@@ -13,6 +13,7 @@ export const getGamesData = async () => {
     .select()
     .from(gamesTable)
     .where(eq(gamesTable.createdBy, userId));
+
   return data;
 };
 
@@ -23,7 +24,7 @@ export const addGame = async (gameEvents: GameEvent[], finalScore: string) => {
     .insert(gamesTable)
     .values({
       createdBy: userId,
-      name: "Game" + new Date().toLocaleString(),
+      name: "Game " + new Date().toLocaleString(),
       finalScore,
     })
     .returning();

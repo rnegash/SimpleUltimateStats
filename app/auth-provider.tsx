@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { NeonAuthUIProvider } from "@neondatabase/auth-ui";
-import { syncAppUser } from "@/actions/authActions";
+import { ensureAppUser } from "@/actions/authActions";
 import { authClient } from "@/lib/auth/client";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -15,7 +15,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       navigate={router.push}
       replace={router.replace}
       onSessionChange={async () => {
-        await syncAppUser();
+        await ensureAppUser();
         router.refresh();
       }}
       redirectTo="/dashboard"
