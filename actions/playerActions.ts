@@ -1,23 +1,30 @@
 "use server";
 
 import { db } from "@/db/server";
-import { players, usersTable } from "@/db/schema";
+import { playersTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { PlayerPositions } from "@/app/game/types";
-import { getCurrentUserId } from "./userActions";
+import { getAppUserId } from "./authActions";
 
 export const addPlayer = async (name: string, position?: PlayerPositions) => {
   if (typeof name !== "string" || name.trim().length === 0) {
     throw new Error("Player name is required.");
   }
 
-  await db
-    .insert(players)
-    .values({ name: name.trim(), position, createdBy: 1 });
+  const userId = await getAppUserId();
+
+  await db.insert(playersTable).values({
+    name: name.trim(),
+    position,
+    createdBy: userId,
+  });
 };
 
 export const getPlayers = async () => {
-  const userId = await getCurrentUserId();
+  const userId = await getAppUserId();
 
-  return await db.select().from(players).where(eq(players.createdBy, userId));
+  return await db
+    .select()
+    .from(playersTable)
+    .where(eq(playersTable.createdBy, userId));
 };

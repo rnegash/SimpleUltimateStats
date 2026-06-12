@@ -3,11 +3,11 @@
 import { db } from "@/db/server";
 import { eventsTable, gamesTable } from "@/db/schema";
 import { GameEvent } from "@/app/game/types";
-import { getCurrentUserId } from "./userActions";
 import { eq } from "drizzle-orm";
+import { getAppUserId } from "./authActions";
 
 export const getGamesData = async () => {
-  const userId = await getCurrentUserId();
+  const userId = await getAppUserId();
 
   const data = await db
     .select()
@@ -17,11 +17,15 @@ export const getGamesData = async () => {
 };
 
 export const addGame = async (gameEvents: GameEvent[], finalScore: string) => {
-  const userId = await getCurrentUserId();
+  const userId = await getAppUserId();
 
   const newGame = await db
     .insert(gamesTable)
-    .values({ createdBy: userId, name: "Training 09.06", finalScore })
+    .values({
+      createdBy: userId,
+      name: "Game" + new Date().toLocaleString(),
+      finalScore,
+    })
     .returning();
 
   const events = gameEvents.map((event) => ({

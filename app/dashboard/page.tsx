@@ -1,6 +1,6 @@
 import { copy } from "../_assets/strings";
 import { Table } from "@heroui/react/table";
-import { getPlayers } from "@/actions/userActions";
+import { getPlayers } from "@/actions/playerActions";
 
 const DashboardPage = async ({}) => {
   const data = await getPlayers();

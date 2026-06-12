@@ -1,4 +1,4 @@
-import { addPlayer } from "@/actions/userActions";
+import { addPlayer } from "@/actions/playerActions";
 import { newPlayerSchema } from "@/schemas/newPlayer";
 import { FormEvent } from "react";
 

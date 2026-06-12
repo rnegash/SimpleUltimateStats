@@ -1,4 +1,4 @@
-import { getPlayers } from "@/actions/userActions";
+import { getPlayers } from "@/actions/playerActions";
 import ClientGame from "./ClientGame";
 
 const GamePage = async () => {

@@ -15,13 +15,13 @@ export default function Home() {
 
           <div className="flex gap-4">
             <Link
-              href="/auth/login"
+              href="/auth/sign-in"
               className="inline-flex items-center justify-center px-6 py-3 rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
             >
               Log in
             </Link>
             <Link
-              href="/auth/register"
+              href="/auth/sign-up"
               className="inline-flex items-center justify-center px-6 py-3 rounded-md border border-zinc-200"
             >
               Register

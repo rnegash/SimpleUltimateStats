@@ -1,7 +1,5 @@
 import { copy } from "../../_assets/strings";
-import { addPlayer } from "@/actions/userActions";
 import { playerPositions } from "@/app/game/types";
-import { newPlayerSchema } from "@/schemas/newPlayer";
 import {
   Form,
   TextField,
