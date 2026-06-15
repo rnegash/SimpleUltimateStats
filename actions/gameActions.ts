@@ -1,10 +1,11 @@
 "use server";
 
 import { db } from "@/db/server";
-import { eventsTable, gamesTable } from "@/db/schema/simpleUltiStats";
+import { gamesTable } from "@/db/schema/simpleUltiStats";
 import { GameEvent } from "@/app/game/types";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { getAppUserId } from "./authActions";
+import { addEventsWithGameId } from "./eventActions";
 
 export const getGamesData = async () => {
   const userId = await getAppUserId();
@@ -39,17 +40,5 @@ export const addGame = async (gameEvents: GameEvent[], finalScore: string) => {
     })
     .returning();
 
-  const events = gameEvents.map((event) => ({
-    eventType: event.type,
-    gameId: newGame[0].id,
-    team: event.teamId,
-    timestamp: event.timestamp,
-    gametime: event.gametime,
-    player: event.playerId,
-    additionalStats: {
-      ...event.data,
-    },
-  }));
-
-  await db.insert(eventsTable).values(events);
+  await addEventsWithGameId(gameEvents, newGame[0].id);
 };

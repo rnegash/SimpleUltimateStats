@@ -9,9 +9,7 @@ const PastGamesPage = async ({}) => {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
       <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-semibold text-slate-950">Games</h2>
-        </div>
+        <h2 className="text-xl font-semibold text-slate-950">Games</h2>
       </div>
       {!data ? (
         copy.dashboardPage.pastGamesPage.gameList.emptyState
@@ -34,7 +32,10 @@ const PastGamesPage = async ({}) => {
               {data.map((game) => (
                 <Table.Row key={game.id}>
                   <Table.Cell>
-                    <Link href={`/dashboard/pastGames/${game.id}`}>
+                    <Link
+                      className="underline hover:no-underline"
+                      href={`/dashboard/pastGames/${game.id}`}
+                    >
                       {game.name}
                     </Link>
                   </Table.Cell>
