@@ -16,7 +16,12 @@ const DashboardLayout = ({
                 {copy.dashboardPage.title}
               </h1>
               <h2 className="mt-2 text-3xl font-semibold text-slate-950">
-                <Link href={"/dashboard"}>{copy.dashboardPage.subtitle}</Link>
+                <Link
+                  className="underline hover:no-underline"
+                  href={"/dashboard"}
+                >
+                  {copy.dashboardPage.subtitle}
+                </Link>
               </h2>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -38,19 +43,16 @@ const DashboardLayout = ({
               >
                 {copy.dashboardPage.links.addPlayers}
               </Link>
-              <Link
+              {/* <Link
                 href="#"
                 className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               >
                 {copy.dashboardPage.links.reports}
-              </Link>
+              </Link> */}
             </div>
           </div>
         </section>
-
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
-          {children}
-        </section>
+        {children}
       </main>
     </div>
   );

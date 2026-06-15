@@ -1,6 +1,7 @@
 import { getGamesData } from "@/actions/gameActions";
 import { copy } from "../../_assets/strings";
 import { Table } from "@heroui/react/table";
+import Link from "next/link";
 
 const PastGamesPage = async ({}) => {
   const data = await getGamesData();
@@ -18,7 +19,7 @@ const PastGamesPage = async ({}) => {
         <Table>
           <Table.Content
             aria-label="Past games"
-            className="overflow-hidden rounded-3xl border border-slate-200 bg-white"
+            className="overflow-hidden rounded-3xl  bg-white"
           >
             <Table.Header>
               {Object.values(
@@ -32,7 +33,11 @@ const PastGamesPage = async ({}) => {
             <Table.Body>
               {data.map((game) => (
                 <Table.Row key={game.id}>
-                  <Table.Cell>{game.name}</Table.Cell>
+                  <Table.Cell>
+                    <Link href={`/dashboard/pastGames/${game.id}`}>
+                      {game.name}
+                    </Link>
+                  </Table.Cell>
                   <Table.Cell>{game.finalScore}</Table.Cell>
                   <Table.Cell>
                     {new Date(game.createdAt).toISOString()}

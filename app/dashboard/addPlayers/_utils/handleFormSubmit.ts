@@ -18,7 +18,7 @@ export const handleFormSubmit = async (
   const newPlayer = await newPlayerSchema.safeParse(data);
 
   if (newPlayer.error) {
-    console.error("newPlayer error");
+    throw new Error("newPlayer error");
   }
 
   if (newPlayer.success) {

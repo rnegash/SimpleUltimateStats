@@ -16,7 +16,7 @@ const DashboardPage = async ({}) => {
         <Table>
           <Table.Content
             aria-label="Player list"
-            className="overflow-hidden rounded-3xl border border-slate-200 bg-white"
+            className="overflow-hidden rounded-3xl  bg-white"
           >
             <Table.Header>
               {Object.values(copy.dashboardPage.playersList.columns).map(

@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db/server";
-import { usersTable } from "@/db/schema";
+import { usersTable } from "@/db/schema/simpleUltiStats";
 import { auth } from "@/lib/auth/server";
 import { eq } from "drizzle-orm";
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db/server";
-import { playersTable } from "@/db/schema";
+import { playersTable } from "@/db/schema/simpleUltiStats";
 import { eq } from "drizzle-orm";
 import { PlayerPositions } from "@/app/game/types";
 import { getAppUserId } from "./authActions";
