@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@heroui/react";
+import { Alert, Button, ErrorMessage, Spinner } from "@heroui/react";
 
 import { copy } from "@/app/_assets/strings";
 import { getScoreByTeam } from "./_utils/getScoreByTeam";
@@ -34,6 +34,12 @@ import { AddEventPopover } from "./_components/AddEventPopover";
 const ClientGame = ({ players }: { players: { name: string }[] }) => {
   const [events, setEvents] = useState<GameEvent[]>([]);
 
+  const [gameSavedStatus, setGameSavedStatus] = useState({
+    pending: false,
+    success: false,
+    error: false,
+  });
+
   return (
     <div className="min-h-screen flex flex-col items-center p-6">
       <div className="w-full justify-center text-2xl flex gap-2">
@@ -60,18 +66,80 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
             />
           ))}
         </div>
-        <div className="flex gap-4">
-          <Button
-            onClick={async () =>
+        <Button
+          isDisabled={gameSavedStatus.pending}
+          onClick={async () => {
+            setGameSavedStatus({
+              pending: true,
+              success: false,
+              error: false,
+            });
+
+            try {
               await addGame(
                 events,
                 `${getScoreByTeam(teams.TEAM_LIGHT, events)}: ${getScoreByTeam(teams.TEAM_DARK, events)}`,
-              )
+              );
+              setGameSavedStatus({
+                success: true,
+                error: false,
+                pending: false,
+              });
+            } catch (error) {
+              setGameSavedStatus({
+                error: true,
+                success: false,
+                pending: false,
+              });
             }
-          >
-            {copy.gamePage.events.actions.save}
-          </Button>
-        </div>
+          }}
+        >
+          {gameSavedStatus.pending
+            ? "Saving..."
+            : copy.gamePage.events.actions.save}
+        </Button>
+
+        {gameSavedStatus.pending && (
+          <Alert status="accent">
+            <Alert.Indicator>
+              <Spinner size="sm" />
+            </Alert.Indicator>
+            <Alert.Content>
+              <Alert.Title>Processing your request</Alert.Title>
+              <Alert.Description>
+                Please wait while we sync your data. This may take a few
+                moments.
+              </Alert.Description>
+            </Alert.Content>
+          </Alert>
+        )}
+
+        {gameSavedStatus.success && (
+          <Alert status="success">
+            <Alert.Indicator />
+            <Alert.Content>
+              <Alert.Title>Game saved successfully</Alert.Title>
+            </Alert.Content>
+          </Alert>
+        )}
+
+        {gameSavedStatus.error && (
+          <Alert status="danger">
+            <Alert.Indicator />
+            <Alert.Content>
+              <Alert.Title>Unable to connect to server</Alert.Title>
+              <Alert.Description>
+                We're experiencing connection issues. Please try the following:
+                <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
+                  <li>Check your internet connection</li>
+                  <li>Refresh the page</li>
+                  <li>Clear your browser cache</li>
+                </ul>
+              </Alert.Description>
+            </Alert.Content>
+          </Alert>
+        )}
+
         {events.length > 0 ? (
           <EventTable events={events} />
         ) : (
