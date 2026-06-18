@@ -30,3 +30,7 @@ export const addEventsWithGameId = async (
 
   await db.insert(eventsTable).values(events);
 };
+
+export const deleteEventsByGameId = async (gameId: number) => {
+  await db.delete(eventsTable).where(eq(eventsTable.gameId, gameId));
+};

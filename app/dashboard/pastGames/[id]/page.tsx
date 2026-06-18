@@ -1,8 +1,8 @@
 import { getEventsDataByGameId } from "@/actions/eventActions";
 import { getGameById } from "@/actions/gameActions";
 import { copy } from "@/app/_assets/strings";
-import { EventTable } from "@/app/game/_components/EventTable";
 import { Table } from "@heroui/react";
+import { DeleteGameButton } from "../_components/deleteGameButton";
 
 export default async function PastGamePAge({
   params,
@@ -15,11 +15,13 @@ export default async function PastGamePAge({
 
   return (
     <section className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
-      <h2 className="text-xl font-semibold text-slate-950">
-        {game.name} - Final result:
-        <span>{game.finalScore}</span>
-      </h2>
-
+      <div className="flex justify-between">
+        <h2 className="text-xl font-semibold text-slate-950">
+          {game.name} - Final result:
+          <span>{game.finalScore}</span>
+        </h2>
+        <DeleteGameButton id={id} />
+      </div>
       <Table>
         <Table.Content aria-label="Event history" className="min-w-150">
           <Table.Header>

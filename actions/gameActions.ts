@@ -3,9 +3,9 @@
 import { db } from "@/db/server";
 import { gamesTable } from "@/db/schema/simpleUltiStats";
 import { GameEvent } from "@/app/game/types";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { getAppUserId } from "./authActions";
-import { addEventsWithGameId } from "./eventActions";
+import { addEventsWithGameId, deleteEventsByGameId } from "./eventActions";
 
 export const getGamesData = async () => {
   const userId = await getAppUserId();
@@ -41,4 +41,9 @@ export const addGame = async (gameEvents: GameEvent[], finalScore: string) => {
     .returning();
 
   await addEventsWithGameId(gameEvents, newGame[0].id);
+};
+
+export const deleteGame = async (gameId: number) => {
+  await deleteEventsByGameId(gameId);
+  await db.delete(gamesTable).where(eq(gamesTable.id, gameId));
 };
