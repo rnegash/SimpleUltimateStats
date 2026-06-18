@@ -23,6 +23,6 @@ export const handleFormSubmit = async (
   }
 
   if (newPlayer.success) {
-    addPlayer(newPlayer.data.name, newPlayer.data.position as PlayerPositions);
+    addPlayer(newPlayer.data.name, newPlayer.data.position);
   }
 };

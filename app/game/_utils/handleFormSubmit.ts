@@ -58,7 +58,7 @@ export const handleFormSubmit = (
           gametime: calculateGameTime(timestamp, gameStartTime),
           playerId: pullData.data.player,
           data: {
-            outcome: pullData.data.outcome as PullOutcome,
+            outcome: pullData.data.outcome,
           },
         };
         setEvents((events) => [...events, newPullEvent]);
@@ -79,7 +79,7 @@ export const handleFormSubmit = (
           gametime: calculateGameTime(timestamp, gameStartTime),
           playerId: turnoverData.data.player,
           data: {
-            reason: turnoverData.data.reason as TurnoverReason,
+            reason: turnoverData.data.reason,
           },
         };
         setEvents((events) => [...events, newTurnoverEvent]);

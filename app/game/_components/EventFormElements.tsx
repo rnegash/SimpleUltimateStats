@@ -146,7 +146,7 @@ export const EventFormElements = ({
             <Label className="font-bold">
               {turnover.eventData.reason.label}
             </Label>
-            {Object.keys(turnoverReasons).map((reason) => (
+            {Object.values(turnoverReasons).map((reason) => (
               <Radio key={reason} value={reason}>
                 <Radio.Control>
                   <Radio.Indicator />
@@ -194,7 +194,7 @@ export const EventFormElements = ({
 
           <RadioGroup name="outcome" orientation="horizontal">
             <Label className="font-bold">{pull.eventData.outcome.label}</Label>
-            {Object.keys(pullOutcomes).map((outcome) => (
+            {Object.values(pullOutcomes).map((outcome) => (
               <Radio key={outcome} value={outcome}>
                 <Radio.Control>
                   <Radio.Indicator />

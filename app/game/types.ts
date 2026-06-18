@@ -4,7 +4,9 @@ export const eventTypes = {
   pull: "pull",
 } as const;
 
-export type Event = keyof typeof eventTypes;
+type EventKeys = keyof typeof eventTypes;
+
+export type Event = (typeof eventTypes)[EventKeys];
 
 export const pullOutcomes = {
   in: "in",
@@ -13,7 +15,8 @@ export const pullOutcomes = {
   unclear: "unclear",
 } as const;
 
-export type PullOutcome = keyof typeof pullOutcomes;
+type PullOutcomeKeys = keyof typeof pullOutcomes;
+export type PullOutcome = (typeof pullOutcomes)[PullOutcomeKeys];
 
 export const turnoverReasons = {
   throwerError: "thrower error",
@@ -21,7 +24,8 @@ export const turnoverReasons = {
   unclear: "unclear",
 } as const;
 
-export type TurnoverReason = keyof typeof turnoverReasons;
+type TurnoverReasonKeys = keyof typeof turnoverReasons;
+export type TurnoverReason = (typeof turnoverReasons)[TurnoverReasonKeys];
 
 export const playerPositions = {
   handler: "handler",
@@ -29,7 +33,8 @@ export const playerPositions = {
   hybrid: "hybrid",
 } as const;
 
-export type PlayerPositions = keyof typeof playerPositions;
+type PlayerPositionsKeys = keyof typeof playerPositions;
+export type PlayerPositions = (typeof playerPositions)[PlayerPositionsKeys];
 
 export type GameEvent =
   | {
