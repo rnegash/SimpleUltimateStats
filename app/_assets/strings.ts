@@ -60,11 +60,11 @@ export const copy = {
             label: "Team",
           },
           outcome: {
-            label: "Outcome",
+            label: "Outcome (Optional)",
             outcome: ["in", "out", "caught"],
           },
           player: {
-            label: "Player",
+            label: "Player (Optional)",
           },
         },
       },
@@ -76,10 +76,10 @@ export const copy = {
             label: "Team",
           },
           assistBy: {
-            label: "Assist by",
+            label: "Assist by (Optional)",
           },
           player: {
-            label: "Player",
+            label: "Player (Optional)",
           },
         },
       },
@@ -91,16 +91,35 @@ export const copy = {
             label: "Team",
           },
           reason: {
-            label: "Reason",
+            label: "Reason (Optional)",
           },
           player: {
-            label: "Player",
+            label: "Player (Optional)",
           },
         },
       },
       actions: {
         save: "Save game",
+        saving: "Saving..",
         back: "Back to dashboard",
+        pending: {
+          title: "Processing your request",
+          description:
+            "Please wait while we sync your data. This may take a few moments.",
+        },
+        error: {
+          title: "Unable to connect to server",
+          description:
+            "We're experiencing connection issues. Please try the following:",
+          list: [
+            "Check your internet connection",
+            "Refresh the page",
+            "Clear your browser cache",
+          ],
+        },
+        success: {
+          title: "Game saved successfully",
+        },
       },
     },
     eventTable: {

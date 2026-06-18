@@ -37,8 +37,8 @@ const PlayerPicker = ({
     formValue="text"
     className="w-full"
   >
+    <Label className="font-bold">{label}</Label>
     <ComboBox.InputGroup>
-      <Label>{label}</Label>
       <Input placeholder={placeholder} />
       <ComboBox.Trigger />
     </ComboBox.InputGroup>
@@ -71,8 +71,8 @@ export const EventFormElements = ({
 
       return (
         <>
-          <RadioGroup name="team">
-            <Label>Team</Label>
+          <RadioGroup name="team" orientation="horizontal">
+            <Label className="font-bold">{score.eventData.team.label}</Label>
             <Radio value={TEAM_DARK}>
               <Radio.Control>
                 <Radio.Indicator />
@@ -111,8 +111,8 @@ export const EventFormElements = ({
 
       return (
         <>
-          <RadioGroup name="team">
-            <Label>Team</Label>
+          <RadioGroup name="team" orientation="horizontal">
+            <Label className="font-bold">{turnover.eventData.team.label}</Label>
             <Radio value={TEAM_DARK}>
               <Radio.Control>
                 <Radio.Indicator />
@@ -137,8 +137,10 @@ export const EventFormElements = ({
             label={turnover.eventData.player.label}
             placeholder={turnover.eventData.player.label}
           />
-          <RadioGroup name="reason">
-            <Label>Reason</Label>
+          <RadioGroup name="reason" orientation="horizontal">
+            <Label className="font-bold">
+              {turnover.eventData.reason.label}
+            </Label>
             {turnoverReasons.map((reason) => (
               <Radio key={reason} value={reason}>
                 <Radio.Control>
@@ -159,7 +161,7 @@ export const EventFormElements = ({
       return (
         <>
           <RadioGroup name="team">
-            <Label>Team</Label>
+            <Label className="font-bold">{pull.eventData.team.label}</Label>
             <Radio value={TEAM_DARK}>
               <Radio.Control>
                 <Radio.Indicator />
@@ -185,8 +187,8 @@ export const EventFormElements = ({
             placeholder={pull.eventData.player.label}
           />
 
-          <RadioGroup name="outcome">
-            <Label>Outcome</Label>
+          <RadioGroup name="outcome" orientation="horizontal">
+            <Label className="font-bold">{pull.eventData.outcome.label}</Label>
             {pullOutcomes.map((outcome) => (
               <Radio key={outcome} value={outcome}>
                 <Radio.Control>

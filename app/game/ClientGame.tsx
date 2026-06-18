@@ -29,7 +29,7 @@ const eventButtons = [
 export type EventButton = (typeof eventButtons)[0];
 
 import { teams } from "./constants";
-import { AddEventPopover } from "./_components/AddEventPopover";
+import { AddEventForm } from "./_components/AddEventForm";
 
 const ClientGame = ({ players }: { players: { name: string }[] }) => {
   const [events, setEvents] = useState<GameEvent[]>([]);
@@ -57,7 +57,7 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
       <main className="max-w-3xl w-full px-6 py-20 flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           {eventButtons.map((event) => (
-            <AddEventPopover
+            <AddEventForm
               key={event.title}
               players={players}
               event={event}
@@ -95,7 +95,7 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
           }}
         >
           {gameSavedStatus.pending
-            ? "Saving..."
+            ? copy.gamePage.events.actions.saving
             : copy.gamePage.events.actions.save}
         </Button>
 
@@ -105,10 +105,11 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
               <Spinner size="sm" />
             </Alert.Indicator>
             <Alert.Content>
-              <Alert.Title>Processing your request</Alert.Title>
+              <Alert.Title>
+                {copy.gamePage.events.actions.pending.title}
+              </Alert.Title>
               <Alert.Description>
-                Please wait while we sync your data. This may take a few
-                moments.
+                {copy.gamePage.events.actions.pending.description}
               </Alert.Description>
             </Alert.Content>
           </Alert>
@@ -118,7 +119,9 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
           <Alert status="success">
             <Alert.Indicator />
             <Alert.Content>
-              <Alert.Title>Game saved successfully</Alert.Title>
+              <Alert.Title>
+                {copy.gamePage.events.actions.success.title}
+              </Alert.Title>
             </Alert.Content>
           </Alert>
         )}
@@ -127,13 +130,16 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
           <Alert status="danger">
             <Alert.Indicator />
             <Alert.Content>
-              <Alert.Title>Unable to connect to server</Alert.Title>
+              <Alert.Title>
+                {copy.gamePage.events.actions.error.title}
+              </Alert.Title>
               <Alert.Description>
-                We're experiencing connection issues. Please try the following:
+                {copy.gamePage.events.actions.error.description}
+
                 <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
-                  <li>Check your internet connection</li>
-                  <li>Refresh the page</li>
-                  <li>Clear your browser cache</li>
+                  {copy.gamePage.events.actions.error.list.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
                 </ul>
               </Alert.Description>
             </Alert.Content>
