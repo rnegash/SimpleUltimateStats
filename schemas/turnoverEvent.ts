@@ -4,10 +4,7 @@ import z from "zod";
 export const turnoverEventSchema = z.object({
   team: z.string(),
   player: z.string().optional(),
-  reason: z
-    .literal(turnoverReasons)
-    .optional()
-    .transform((e) => (e === "" ? undefined : e)),
+  reason: z.literal(Object.keys(turnoverReasons)).optional(),
 });
 
 export type TurnoverEvent = z.infer<typeof turnoverEventSchema>;

@@ -4,10 +4,7 @@ import z from "zod";
 export const pullEventSchema = z.object({
   team: z.string(),
   player: z.string().optional(),
-  outcome: z
-    .literal(pullOutcomes)
-    .optional()
-    .transform((e) => (e === "" ? undefined : e)),
+  outcome: z.literal(Object.keys(pullOutcomes)).optional(),
 });
 
 export type PullEvent = z.infer<typeof pullEventSchema>;

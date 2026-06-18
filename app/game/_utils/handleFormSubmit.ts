@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import { scoreEventSchema } from "@/schemas/scoreEvent";
-import type { Event, GameEvent } from "../types";
+import type { Event, GameEvent, PullOutcome, TurnoverReason } from "../types";
 import { getScoreByTeam } from "./getScoreByTeam";
 import { pullEventSchema } from "@/schemas/pullEvent";
 import { turnoverEventSchema } from "@/schemas/turnoverEvent";
@@ -58,7 +58,7 @@ export const handleFormSubmit = (
           gametime: calculateGameTime(timestamp, gameStartTime),
           playerId: pullData.data.player,
           data: {
-            outcome: pullData.data.outcome,
+            outcome: pullData.data.outcome as PullOutcome,
           },
         };
         setEvents((events) => [...events, newPullEvent]);
@@ -79,7 +79,7 @@ export const handleFormSubmit = (
           gametime: calculateGameTime(timestamp, gameStartTime),
           playerId: turnoverData.data.player,
           data: {
-            reason: turnoverData.data.reason,
+            reason: turnoverData.data.reason as TurnoverReason,
           },
         };
         setEvents((events) => [...events, newTurnoverEvent]);

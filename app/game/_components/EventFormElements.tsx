@@ -10,7 +10,12 @@ import {
   Radio,
   Input,
 } from "@heroui/react";
-import { pullOutcomes, turnoverReasons, type Event } from "../types";
+import {
+  eventTypes,
+  pullOutcomes,
+  turnoverReasons,
+  type Event,
+} from "../types";
 import { teams } from "../constants";
 
 type PlayerOption = {
@@ -66,7 +71,7 @@ export const EventFormElements = ({
   const { TEAM_DARK, TEAM_LIGHT } = teams;
 
   switch (eventType) {
-    case "score":
+    case eventTypes.score:
       const { score } = events;
 
       return (
@@ -106,7 +111,7 @@ export const EventFormElements = ({
         </>
       );
 
-    case "turnover":
+    case eventTypes.turnover:
       const { turnover } = events;
 
       return (
@@ -141,7 +146,7 @@ export const EventFormElements = ({
             <Label className="font-bold">
               {turnover.eventData.reason.label}
             </Label>
-            {turnoverReasons.map((reason) => (
+            {Object.keys(turnoverReasons).map((reason) => (
               <Radio key={reason} value={reason}>
                 <Radio.Control>
                   <Radio.Indicator />
@@ -155,7 +160,7 @@ export const EventFormElements = ({
         </>
       );
 
-    case "pull":
+    case eventTypes.pull:
       const { pull } = events;
 
       return (
@@ -189,7 +194,7 @@ export const EventFormElements = ({
 
           <RadioGroup name="outcome" orientation="horizontal">
             <Label className="font-bold">{pull.eventData.outcome.label}</Label>
-            {pullOutcomes.map((outcome) => (
+            {Object.keys(pullOutcomes).map((outcome) => (
               <Radio key={outcome} value={outcome}>
                 <Radio.Control>
                   <Radio.Indicator />

@@ -1,11 +1,4 @@
 import {
-  pgSchema,
-  uuid,
-  boolean,
-  jsonb,
-  index,
-  uniqueIndex,
-  unique,
   integer,
   pgTable,
   text,
@@ -13,8 +6,7 @@ import {
   timestamp,
   json,
 } from "drizzle-orm/pg-core";
-import { defineRelations, sql } from "drizzle-orm";
-import { eventType } from "@/app/game/types";
+import { defineRelations } from "drizzle-orm";
 
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -47,7 +39,7 @@ export const playersTable = pgTable("players", {
 export const eventsTable = pgTable("events", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
-  eventType: text("event_type", { enum: eventType }),
+  eventType: text("event_type", { enum: ["score", "pull", "turnover"] }),
   gameId: integer("game_id")
     .references(() => gamesTable.id)
     .notNull(),

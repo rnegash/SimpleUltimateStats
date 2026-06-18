@@ -1,4 +1,5 @@
 import { addPlayer } from "@/actions/playerActions";
+import { PlayerPositions } from "@/app/game/types";
 import { newPlayerSchema } from "@/schemas/newPlayer";
 import { FormEvent } from "react";
 
@@ -22,6 +23,6 @@ export const handleFormSubmit = async (
   }
 
   if (newPlayer.success) {
-    addPlayer(newPlayer.data.name, newPlayer.data.position);
+    addPlayer(newPlayer.data.name, newPlayer.data.position as PlayerPositions);
   }
 };

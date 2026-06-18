@@ -1,18 +1,35 @@
-export const eventType = ["score", "turnover", "pull"] as const;
+export const eventTypes = {
+  score: "score",
+  turnover: "turnover",
+  pull: "pull",
+} as const;
 
-export type Event = (typeof eventType)[number];
+export type Event = keyof typeof eventTypes;
 
-export const pullOutcomes = ["in", "out", "caught", ""] as const;
+export const pullOutcomes = {
+  in: "in",
+  out: "out",
+  caught: "caught",
+  unclear: "unclear",
+} as const;
 
-export type PullOutcome = (typeof pullOutcomes)[number];
+export type PullOutcome = keyof typeof pullOutcomes;
 
-export const turnoverReasons = ["thrower error", "receiver error", ""] as const;
+export const turnoverReasons = {
+  throwerError: "thrower error",
+  receiverError: "receiver error",
+  unclear: "unclear",
+} as const;
 
-export type TurnoverReason = (typeof turnoverReasons)[number];
+export type TurnoverReason = keyof typeof turnoverReasons;
 
-export const playerPositions = ["handler", "cutter", "hybrid"] as const;
+export const playerPositions = {
+  handler: "handler",
+  cutter: "cutter",
+  hybrid: "hybrid",
+} as const;
 
-export type PlayerPositions = (typeof playerPositions)[number];
+export type PlayerPositions = keyof typeof playerPositions;
 
 export type GameEvent =
   | {

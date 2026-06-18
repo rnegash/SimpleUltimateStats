@@ -1,6 +1,6 @@
 import { copy } from "@/app/_assets/strings";
 import { Table } from "@heroui/react/table";
-import type { GameEvent } from "../types";
+import { eventTypes, type GameEvent } from "../types";
 
 export const EventTable = ({ events }: { events: GameEvent[] }) => (
   <Table>
@@ -23,7 +23,8 @@ export const EventTable = ({ events }: { events: GameEvent[] }) => (
         {events.toReversed().map((event) => (
           <Table.Row key={event.timestamp}>
             <Table.Cell>
-              {event.type} {event.type === "score" && event.data?.points}
+              {event.type}
+              {event.type === eventTypes.score && event.data?.points}
             </Table.Cell>
             <Table.Cell>{event.teamId}</Table.Cell>
             <Table.Cell>{event.playerId}</Table.Cell>
