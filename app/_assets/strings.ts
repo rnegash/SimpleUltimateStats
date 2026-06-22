@@ -1,8 +1,11 @@
-import { eventType } from "../game/types";
+import { eventTypes } from "../game/types";
 
 export const copy = {
   dashboardPage: {
     pastGamesPage: {
+      pastGame: {
+        deleteGameButton: "Delete game",
+      },
       gameList: {
         emptyState:
           "A list of games will appear here once game data is available.",
@@ -30,10 +33,13 @@ export const copy = {
         "A list of players will appear here once player data is available.",
     },
     addPlayersPage: {
+      title: "Add Player",
       form: {
         nameLabel: "Player name",
+        positionLabel: "Position",
         namePlaceholder: "Enter player name",
         submit: "Add player",
+        error: "Player name is requiredr",
       },
     },
   },
@@ -53,7 +59,7 @@ export const copy = {
     currentPossession: "Current Possession",
     events: {
       pull: {
-        title: eventType[2],
+        title: eventTypes.pull,
         addEvent: "Add Pull event",
         eventData: {
           team: {
@@ -69,7 +75,7 @@ export const copy = {
         },
       },
       score: {
-        title: eventType[0],
+        title: eventTypes.score,
         addEvent: "Add Score event",
         eventData: {
           team: {
@@ -84,7 +90,7 @@ export const copy = {
         },
       },
       turnover: {
-        title: eventType[1],
+        title: eventTypes.turnover,
         addEvent: "Add Turnover event",
         eventData: {
           team: {

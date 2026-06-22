@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteGame } from "@/actions/gameActions";
+import { copy } from "@/app/_assets/strings";
 import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +16,7 @@ export const DeleteGameButton = ({ id }: { id: string }) => {
         router.push("/dashboard/pastGames");
       }}
     >
-      Delete game
+      {copy.dashboardPage.pastGamesPage.pastGame.deleteGameButton}
     </Button>
   );
 };

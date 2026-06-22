@@ -19,7 +19,9 @@ const AddPlayersPage = ({}) => {
 
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70 flex flex-col gap-6">
-      <h2 className="text-xl font-semibold text-slate-950">Add Player</h2>
+      <h2 className="text-xl font-semibold text-slate-950">
+        {copy.dashboardPage.addPlayersPage.title}
+      </h2>
 
       <Form
         onSubmit={async (formData) => {
@@ -42,12 +44,14 @@ const AddPlayersPage = ({}) => {
           <Input
             placeholder={copy.dashboardPage.addPlayersPage.form.namePlaceholder}
           />
-          <FieldError>Player name is required</FieldError>
+          <FieldError>
+            {copy.dashboardPage.addPlayersPage.form.error}
+          </FieldError>
         </TextField>
 
         <RadioGroup name="position">
-          <Label>Position</Label>
-          {playerPositions.map((position) => (
+          <Label>{copy.dashboardPage.addPlayersPage.form.positionLabel}</Label>
+          {Object.values(playerPositions).map((position) => (
             <Radio key={position} value={position}>
               <Radio.Control>
                 <Radio.Indicator />

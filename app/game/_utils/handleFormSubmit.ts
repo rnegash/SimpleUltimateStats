@@ -1,10 +1,11 @@
 import type { Dispatch, SetStateAction } from "react";
 import { scoreEventSchema } from "@/schemas/scoreEvent";
-import type { Event, GameEvent, PullOutcome, TurnoverReason } from "../types";
+import { eventTypes, type Event, type GameEvent } from "../types";
 import { getScoreByTeam } from "./getScoreByTeam";
 import { pullEventSchema } from "@/schemas/pullEvent";
 import { turnoverEventSchema } from "@/schemas/turnoverEvent";
 import { calculateGameTime } from "./calculateGameTime";
+import { formDataToPlainObject } from "@/app/_utils/formDataToPlainObject";
 
 export const handleFormSubmit = (
   e: React.FormEvent<HTMLFormElement>,
@@ -13,18 +14,12 @@ export const handleFormSubmit = (
   setEvents: Dispatch<SetStateAction<GameEvent[]>>,
 ) => {
   e.preventDefault();
-  const formData = new FormData(e.currentTarget);
-  const data: Record<string, string> = {};
-
-  // Convert FormData to plain object
-  formData.forEach((value, key) => {
-    data[key] = value.toString();
-  });
+  const data = formDataToPlainObject(e);
 
   const timestamp = new Date().toISOString();
   const gameStartTime = events[0]?.timestamp;
   switch (eventType) {
-    case "score":
+    case eventTypes.score:
       const scoreData = scoreEventSchema.safeParse(data);
 
       if (scoreData.success) {
@@ -47,7 +42,7 @@ export const handleFormSubmit = (
 
       break;
 
-    case "pull":
+    case eventTypes.pull:
       const pullData = pullEventSchema.safeParse(data);
 
       if (pullData.success) {
@@ -61,6 +56,7 @@ export const handleFormSubmit = (
             outcome: pullData.data.outcome,
           },
         };
+
         setEvents((events) => [...events, newPullEvent]);
       } else {
         console.log(pullData.error);
@@ -68,7 +64,7 @@ export const handleFormSubmit = (
 
       break;
 
-    case "turnover":
+    case eventTypes.turnover:
       const turnoverData = turnoverEventSchema.safeParse(data);
 
       if (turnoverData.success) {
@@ -82,6 +78,7 @@ export const handleFormSubmit = (
             reason: turnoverData.data.reason,
           },
         };
+
         setEvents((events) => [...events, newTurnoverEvent]);
       } else {
         console.log(turnoverData.error);
