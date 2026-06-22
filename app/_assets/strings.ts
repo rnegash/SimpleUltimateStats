@@ -1,9 +1,23 @@
 import { eventTypes } from "../game/types";
 
 export const copy = {
+  meta: {
+    title: "SimpleUltimateStats",
+    description: "Collect stats for your team",
+  },
+  landingPage: {
+    title: "SimpleUltiStats",
+    tagline:
+      "Track and record ultimate frisbee game events—scores, pulls, turnovers—and save games for later analysis.",
+    logIn: "Log in",
+    register: "Register",
+    featureNote: "Record mode supports score, pull, and turn events.",
+  },
   dashboardPage: {
     pastGamesPage: {
+      title: "Games",
       pastGame: {
+        title: "Final result:",
         deleteGameButton: "Delete game",
       },
       gameList: {
@@ -25,6 +39,7 @@ export const copy = {
       reports: "Reports",
     },
     playersList: {
+      title: "Players",
       columns: {
         player: "Player",
         position: "Joined",
@@ -39,7 +54,7 @@ export const copy = {
         positionLabel: "Position",
         namePlaceholder: "Enter player name",
         submit: "Add player",
-        error: "Player name is requiredr",
+        error: "Player name is required",
       },
     },
   },
@@ -105,6 +120,7 @@ export const copy = {
         },
       },
       actions: {
+        submit: "Submit",
         save: "Save game",
         saving: "Saving..",
         back: "Back to dashboard",

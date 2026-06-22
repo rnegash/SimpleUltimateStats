@@ -17,7 +17,7 @@ export default async function PastGamePAge({
     <section className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
       <div className="flex justify-between">
         <h2 className="text-xl font-semibold text-slate-950">
-          {game.name} - Final result:
+          {game.name} - {copy.dashboardPage.pastGamesPage.pastGame.title}
           <span>{game.finalScore}</span>
         </h2>
         <DeleteGameButton id={id} />

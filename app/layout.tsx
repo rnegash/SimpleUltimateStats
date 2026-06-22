@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "./auth-provider";
+import { copy } from "./_assets/strings";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SimpleUltimateStats",
-  description: "Collect stats for your team",
+  title: copy.meta.title,
+  description: copy.meta.description,
 };
 
 export default function RootLayout({

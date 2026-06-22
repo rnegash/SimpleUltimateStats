@@ -4,6 +4,7 @@ import { handleFormSubmit } from "../_utils/handleFormSubmit";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { EventButton } from "../ClientGame";
 import { EventFormElements } from "./EventFormElements";
+import { copy } from "@/app/_assets/strings";
 
 export const AddEventForm = ({
   event,
@@ -51,7 +52,7 @@ export const AddEventForm = ({
 
           <div className="flex gap-2">
             <Button type="submit" onClick={() => setIsOpen(false)}>
-              Submit
+              {copy.gamePage.events.actions.submit}
             </Button>
           </div>
         </Form>

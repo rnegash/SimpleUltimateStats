@@ -9,7 +9,7 @@ const PastGamesPage = async ({}) => {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-slate-950">Games</h2>
+        <h2 className="text-xl font-semibold text-slate-950">{copy.dashboardPage.pastGamesPage.title}</h2>
       </div>
       {!data ? (
         copy.dashboardPage.pastGamesPage.gameList.emptyState
