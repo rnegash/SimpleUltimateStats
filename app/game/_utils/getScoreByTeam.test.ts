@@ -38,4 +38,53 @@ describe("getScoreByTeam", () => {
     expect(getScoreByTeam("team1", mockEvents)).toBe(1);
     expect(getScoreByTeam("team2", mockEvents)).toBe(0);
   });
+
+  test("returns the last score event's points when there are multiple", () => {
+    const mockEvents: GameEvent[] = [
+      {
+        type: "score",
+        teamId: "team1",
+        timestamp: "2026-05-31T14:00:00Z",
+        gametime: "00:00:00",
+        data: { points: 1 },
+      },
+      {
+        type: "score",
+        teamId: "team1",
+        timestamp: "2026-05-31T14:05:00Z",
+        gametime: "00:05:00",
+        data: { points: 2 },
+      },
+    ];
+
+    expect(getScoreByTeam("team1", mockEvents)).toBe(2);
+  });
+
+  test("returns 0 when the score event has no points field", () => {
+    const mockEvents: GameEvent[] = [
+      {
+        type: "score",
+        teamId: "team1",
+        timestamp: "2026-05-31T14:00:00Z",
+        gametime: "00:00:00",
+        data: {},
+      },
+    ];
+
+    expect(getScoreByTeam("team1", mockEvents)).toBe(0);
+  });
+
+  test("ignores score events from the other team", () => {
+    const mockEvents: GameEvent[] = [
+      {
+        type: "score",
+        teamId: "team2",
+        timestamp: "2026-05-31T14:00:00Z",
+        gametime: "00:00:00",
+        data: { points: 5 },
+      },
+    ];
+
+    expect(getScoreByTeam("team1", mockEvents)).toBe(0);
+  });
 });

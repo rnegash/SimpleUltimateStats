@@ -3,7 +3,7 @@ import ClientGame from "./ClientGame";
 
 const GamePage = async () => {
   const rows = await getPlayers();
-  const players = rows.map((p: any) => ({ name: p.name }));
+  const players = rows.map((p) => ({ name: p.name }));
 
   return <ClientGame players={players} />;
 };
