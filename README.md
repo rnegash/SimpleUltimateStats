@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SimpleUltimateStats
 
-## Getting Started
+A web app for tracking stats during Ultimate Frisbee games. Log events like scores, pulls, and turnovers in real time, and review game history with per-player breakdowns.
 
-First, run the development server:
+## Features
+
+- **Game tracking** — create games and record live events (scores, pulls, turnovers)
+- **Player management** — manage a roster with positions (handler, cutter, hybrid)
+- **Auth** — user accounts via Neon Auth
+- **Dashboard** — view past games and stats
+
+## Tech stack
+
+- [Next.js 16](https://nextjs.org) (App Router)
+- [Drizzle ORM](https://orm.drizzle.team) + [Neon](https://neon.tech) (serverless Postgres)
+- [HeroUI](https://heroui.com) + Tailwind CSS
+- [Neon Auth](https://neon.tech/docs/guides/neon-auth) for authentication
+
+## Getting started
+
+1. Copy `.env.example` to `.env` and fill in your Neon database URL and auth credentials.
+
+2. Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Push the schema to your database:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm drizzle-kit push
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Start the dev server:
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm test` | Run tests with Vitest |
+| `pnpm lint` | Lint with ESLint |
