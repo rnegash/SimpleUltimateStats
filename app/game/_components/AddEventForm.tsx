@@ -23,7 +23,7 @@ export const AddEventForm = ({
     <>
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className={event.color}
+        className={`capitalize ${event.color}`}
         fullWidth
         size="lg"
       >

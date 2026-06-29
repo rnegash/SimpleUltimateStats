@@ -37,6 +37,7 @@ export const copy = {
       pastGames: "Past games",
       addPlayers: "Add players",
       reports: "Reports",
+      logOut: "Log out",
     },
     playersList: {
       title: "Players",
@@ -124,6 +125,13 @@ export const copy = {
         save: "Save game",
         saving: "Saving..",
         back: "Back to dashboard",
+        backWarning: {
+          title: "Leave game?",
+          description:
+            "All current game data will be lost. Are you sure you want to go back to the dashboard?",
+          confirm: "Leave game",
+          cancel: "Stay",
+        },
         pending: {
           title: "Processing your request",
           description:

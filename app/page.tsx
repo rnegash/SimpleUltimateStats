@@ -1,7 +1,14 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth/server";
 import { copy } from "./_assets/strings";
 
-export default function Home() {
+export default async function Home() {
+  const { data: session } = await auth.getSession();
+  if (session?.user) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <main className="max-w-3xl w-full px-6 py-20">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { copy } from "../_assets/strings";
+import { LogoutButton } from "./_components/LogoutButton";
 
 const DashboardLayout = ({
   children,
@@ -24,7 +25,7 @@ const DashboardLayout = ({
                 </Link>
               </h2>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <Link
                 href="/game"
                 className="rounded-full bg-sky-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-600"
@@ -43,6 +44,7 @@ const DashboardLayout = ({
               >
                 {copy.dashboardPage.links.addPlayers}
               </Link>
+              <LogoutButton />
               {/* <Link
                 href="#"
                 className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"

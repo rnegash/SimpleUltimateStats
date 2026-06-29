@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Alert, Button, ErrorMessage, Spinner } from "@heroui/react";
+import { Alert, Button, Spinner } from "@heroui/react";
 
 import { copy } from "@/app/_assets/strings";
 import { getScoreByTeam } from "./_utils/getScoreByTeam";
@@ -47,7 +47,7 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
   });
 
   return (
-    <div className="min-h-screen flex flex-col items-center p-6">
+    <main className="flex flex-col gap-8">
       <div className="w-full justify-center text-2xl flex gap-2">
         <span>
           {teams.TEAM_DARK || copy.gamePage.darkTeam}{" "}
@@ -60,81 +60,80 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
         </span>
       </div>
 
-      <main className="max-w-3xl w-full px-6 py-20 flex flex-col gap-8">
-        <div className="flex flex-col gap-4">
-          {eventButtons.map((event) => (
-            <AddEventForm
-              key={event.title}
-              players={players}
-              event={event}
-              events={events}
-              setEvents={setEvents}
-            />
-          ))}
-        </div>
-        <Button
-          isDisabled={gameSavedStatus.pending}
-          onClick={() => saveGame(events, setGameSavedStatus)}
-        >
-          {gameSavedStatus.pending
-            ? copy.gamePage.events.actions.saving
-            : copy.gamePage.events.actions.save}
-        </Button>
+      <div className="flex flex-col gap-4">
+        {eventButtons.map((event) => (
+          <AddEventForm
+            key={event.title}
+            players={players}
+            event={event}
+            events={events}
+            setEvents={setEvents}
+          />
+        ))}
+      </div>
 
-        {gameSavedStatus.pending && (
-          <Alert status="accent">
-            <Alert.Indicator>
-              <Spinner size="sm" />
-            </Alert.Indicator>
-            <Alert.Content>
-              <Alert.Title>
-                {copy.gamePage.events.actions.pending.title}
-              </Alert.Title>
-              <Alert.Description>
-                {copy.gamePage.events.actions.pending.description}
-              </Alert.Description>
-            </Alert.Content>
-          </Alert>
-        )}
+      <Button
+        isDisabled={gameSavedStatus.pending}
+        onPress={() => saveGame(events, setGameSavedStatus)}
+      >
+        {gameSavedStatus.pending
+          ? copy.gamePage.events.actions.saving
+          : copy.gamePage.events.actions.save}
+      </Button>
 
-        {gameSavedStatus.success && (
-          <Alert status="success">
-            <Alert.Indicator />
-            <Alert.Content>
-              <Alert.Title>
-                {copy.gamePage.events.actions.success.title}
-              </Alert.Title>
-            </Alert.Content>
-          </Alert>
-        )}
+      {gameSavedStatus.pending && (
+        <Alert status="accent">
+          <Alert.Indicator>
+            <Spinner size="sm" />
+          </Alert.Indicator>
+          <Alert.Content>
+            <Alert.Title>
+              {copy.gamePage.events.actions.pending.title}
+            </Alert.Title>
+            <Alert.Description>
+              {copy.gamePage.events.actions.pending.description}
+            </Alert.Description>
+          </Alert.Content>
+        </Alert>
+      )}
 
-        {gameSavedStatus.error && (
-          <Alert status="danger">
-            <Alert.Indicator />
-            <Alert.Content>
-              <Alert.Title>
-                {copy.gamePage.events.actions.error.title}
-              </Alert.Title>
-              <Alert.Description>
-                {copy.gamePage.events.actions.error.description}
+      {gameSavedStatus.success && (
+        <Alert status="success">
+          <Alert.Indicator />
+          <Alert.Content>
+            <Alert.Title>
+              {copy.gamePage.events.actions.success.title}
+            </Alert.Title>
+          </Alert.Content>
+        </Alert>
+      )}
 
-                <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
-                  {copy.gamePage.events.actions.error.list.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </Alert.Description>
-            </Alert.Content>
-          </Alert>
-        )}
+      {gameSavedStatus.error && (
+        <Alert status="danger">
+          <Alert.Indicator />
+          <Alert.Content>
+            <Alert.Title>
+              {copy.gamePage.events.actions.error.title}
+            </Alert.Title>
+            <Alert.Description>
+              {copy.gamePage.events.actions.error.description}
 
-        {events.length > 0 ? (
-          <EventTable events={events} />
-        ) : (
-          copy.gamePage.eventTable.emptyState
-        )}
-      </main>
-    </div>
+              <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
+                {copy.gamePage.events.actions.error.list.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </Alert.Description>
+          </Alert.Content>
+        </Alert>
+      )}
+
+      {events.length > 0 ? (
+        <EventTable events={events} />
+      ) : (
+        copy.gamePage.eventTable.emptyState
+      )}
+    </main>
   );
 };
 
