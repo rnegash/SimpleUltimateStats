@@ -9,7 +9,7 @@ import { getScoreByTeam } from "./_utils/getScoreByTeam";
 import type { GameEvent } from "./types";
 import { EventTable } from "./_components/EventTable";
 
-import { addGame } from "@/actions/gameActions";
+import { saveGame } from "./_utils/saveGame";
 
 const eventButtons = [
   {
@@ -28,13 +28,19 @@ const eventButtons = [
 
 export type EventButton = (typeof eventButtons)[0];
 
+export type GameSavedStatus = {
+  pending: boolean;
+  success: boolean;
+  error: boolean;
+};
+
 import { teams } from "./constants";
 import { AddEventForm } from "./_components/AddEventForm";
 
 const ClientGame = ({ players }: { players: { name: string }[] }) => {
   const [events, setEvents] = useState<GameEvent[]>([]);
 
-  const [gameSavedStatus, setGameSavedStatus] = useState({
+  const [gameSavedStatus, setGameSavedStatus] = useState<GameSavedStatus>({
     pending: false,
     success: false,
     error: false,
@@ -68,31 +74,7 @@ const ClientGame = ({ players }: { players: { name: string }[] }) => {
         </div>
         <Button
           isDisabled={gameSavedStatus.pending}
-          onClick={async () => {
-            setGameSavedStatus({
-              pending: true,
-              success: false,
-              error: false,
-            });
-
-            try {
-              await addGame(
-                events,
-                `${getScoreByTeam(teams.TEAM_LIGHT, events)}: ${getScoreByTeam(teams.TEAM_DARK, events)}`,
-              );
-              setGameSavedStatus({
-                success: true,
-                error: false,
-                pending: false,
-              });
-            } catch (error) {
-              setGameSavedStatus({
-                error: true,
-                success: false,
-                pending: false,
-              });
-            }
-          }}
+          onClick={() => saveGame(events, setGameSavedStatus)}
         >
           {gameSavedStatus.pending
             ? copy.gamePage.events.actions.saving
