@@ -19,6 +19,7 @@ export const copy = {
       pastGame: {
         title: "Final result:",
         deleteGameButton: "Delete game",
+        exportGameButton: "Export summary as .txt",
       },
       gameList: {
         emptyState:

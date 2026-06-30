@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { AlertDialog, Button, useOverlayState } from "@heroui/react";
+import { LinkButton } from "@/app/_components/LinkButton";
 import { copy } from "@/app/_assets/strings";
 
 export const BackToDashboard = () => {
@@ -32,12 +32,9 @@ export const BackToDashboard = () => {
                   <Button onPress={close}>
                     {copy.gamePage.events.actions.backWarning.cancel}
                   </Button>
-                  <Link
-                    href="/dashboard"
-                    className="rounded-full bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
-                  >
+                  <LinkButton href="/dashboard" variant="danger">
                     {copy.gamePage.events.actions.backWarning.confirm}
-                  </Link>
+                  </LinkButton>
                 </AlertDialog.Footer>
               </>
             )}
