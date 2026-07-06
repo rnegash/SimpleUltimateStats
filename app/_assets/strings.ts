@@ -129,7 +129,7 @@ export const copy = {
         backWarning: {
           title: "Leave game?",
           description:
-            "All current game data will be lost. Are you sure you want to go back to the dashboard?",
+            "All unsaved game data will be lost. Are you sure you want to go back to the dashboard?",
           confirm: "Leave game",
           cancel: "Stay",
         },

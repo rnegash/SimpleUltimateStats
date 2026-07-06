@@ -2,6 +2,7 @@ import { getGamesData } from "@/actions/gameActions";
 import { copy } from "../../_assets/strings";
 import { Table } from "@heroui/react/table";
 import Link from "next/link";
+import { formatScore } from "./_utils/formatGameExport";
 
 const PastGamesPage = async ({}) => {
   const data = await getGamesData();
@@ -39,7 +40,7 @@ const PastGamesPage = async ({}) => {
                       {game.name}
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>{game.finalScore}</Table.Cell>
+                  <Table.Cell>{formatScore(game)}</Table.Cell>
                   <Table.Cell>
                     {new Date(game.createdAt).toISOString()}
                   </Table.Cell>

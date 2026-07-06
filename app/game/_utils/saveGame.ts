@@ -14,7 +14,8 @@ export const saveGame = async (
   try {
     await addGame(
       events,
-      `${getScoreByTeam(teams.TEAM_LIGHT, events)}: ${getScoreByTeam(teams.TEAM_DARK, events)}`,
+      getScoreByTeam(teams.TEAM_DARK, events),
+      getScoreByTeam(teams.TEAM_LIGHT, events),
     );
     setGameSavedStatus({ success: true, error: false, pending: false });
   } catch {

@@ -28,7 +28,11 @@ export const getGameById = async (pastGameId: number) => {
   return data[0];
 };
 
-export const addGame = async (gameEvents: GameEvent[], finalScore: string) => {
+export const addGame = async (
+  gameEvents: GameEvent[],
+  darksScore: number,
+  lightsScore: number,
+) => {
   const userId = await getAppUserId();
 
   const newGame = await db
@@ -36,7 +40,8 @@ export const addGame = async (gameEvents: GameEvent[], finalScore: string) => {
     .values({
       createdBy: userId,
       name: `Game on ${new Date().toLocaleString()}`,
-      finalScore,
+      darksScore,
+      lightsScore,
     })
     .returning();
 
